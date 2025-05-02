@@ -2,10 +2,10 @@
   <img src="https://cloud.githubusercontent.com/assets/2059754/24601246/753a7f36-1858-11e7-9d6b-7a0e64fb27f7.png" alt="bash logo"/>
 </p>
 
-## Table of Contents
+# Table of Contents
   1. [Basic Operations](#1-basic-operations)  
-    1.1. [File Operations](#11-file-operations)  
-    1.2. [Text Operations](#12-text-operations)  
+  2. [File Operations](#2-file-operations)  
+  3. [Text Operations](#3-text-operations)  
     1.3. [Directory Operations](#13-directory-operations)  
     1.4. [SSH, System Info & Network Operations](#14-ssh-system-info--network-operations)  
     1.5. [Process Monitoring Operations](#15-process-monitoring-operations)
@@ -25,7 +25,7 @@
 
 # 1. Basic Operations
 
-### a. `export` - `echo` - `unset` - `env` - `printenv`
+### 1.1. `export` - `echo` - `unset` - `env` - `printenv`
 The `export` command is used to set environment variables or display all exported variables in the current shell session. 
 
 If you want to get details of a specific variable, you can use `echo $VARIABLE_NAME`. 
@@ -90,8 +90,8 @@ SSH_AUTH_SOCK=/run/user/1000/keyring/ssh
 anngo@anngo-Vostro-5620:~$
 ```
 
-### b. `whatis`
-whatis shows description for user commands, system calls, library functions, and others in manual pages
+### 1.2. `whatis`
+`whatis` shows description for user commands, system calls, library functions, and others in manual pages
 ```bash
 whatis something
 ```
@@ -115,7 +115,7 @@ pwd (1)              - print name of current/working directory
 anngo@anngo-Vostro-5620:~$
 ```
 
-### c. `whereis`
+### 1.3. `whereis`
 `whereis` searches for executables, source files, and manual pages using a database built by system automatically.
 ```bash
 whereis name
@@ -234,7 +234,7 @@ src: /usr/src/linux-headers-6.11.0-24-generic
 anngo@anngo-Vostro-5620:~$
 ```
 
-### d. `which`
+### 1.4. `which`
 `which` searches for executables in the directories specified by the environment variable `PATH`. This command will print the full path of the executable(s).
 ```bash
 which program_name 
@@ -250,10 +250,10 @@ anngo@anngo-Vostro-5620:~$ which intellij-idea-community
 anngo@anngo-Vostro-5620:~$
 ```
 
-### e. clear
+### 1.5. clear
 Clears content on window.
 
-## 1.1. File Operations
+## 2. File Operations
 <table>
    <tr>
       <td><a href="#a-cat">cat</a></td>
@@ -282,7 +282,7 @@ Clears content on window.
    </tr>
 </table>
 
-### a. `cat`
+### 2.1. `cat`
 It can be used for the following purposes under UNIX or Linux.  
 * Display text files on screen
 * Copy text files  
@@ -295,132 +295,520 @@ cat file1 file2 > newcombinedfile
 cat < file1 > file2 #copy file1 to file2
 ```
 
-### b. `chmod`
+Example:
+```bash
+anngo@anngo-Vostro-5620:~$ cat file.txt
+Hello, this is a sample file.
+It contains multiple lines of text.
+This is the third line
+
+anngo@anngo-Vostro-5620:~$ cat another_file.txt 
+This is another file.
+It has some different content.
+
+anngo@anngo-Vostro-5620:~$ cat file.txt another_file.txt 
+Hello, this is a sample file.
+It contains multiple lines of text.
+This is the third line
+This is another file.
+It has some different content.
+
+anngo@anngo-Vostro-5620:~$ cat file.txt another_file.txt > combined_file.txt
+
+anngo@anngo-Vostro-5620:~$ cat combined_file.txt 
+Hello, this is a sample file.
+It contains multiple lines of text.
+This is the third line
+This is another file.
+It has some different content.
+
+anngo@anngo-Vostro-5620:~$ cat file.txt > another_file.txt 
+
+anngo@anngo-Vostro-5620:~$ cat another_file.txt 
+Hello, this is a sample file.
+It contains multiple lines of text.
+This is the third line
+
+anngo@anngo-Vostro-5620:~$
+```
+
+### 2.2. `chmod`
 The chmod command stands for "change mode" and allows you to change the read, write, and execute permissions on your files and folders. For more information on this command check this [link](https://ss64.com/bash/chmod.html).
 ```bash
 chmod -options filename
 ```
+Common Options for chmod
+- `+x`:	Add execute permission to the file
+- `-x`:	Remove execute permission from the file
+- `+r`:	Add read permission to the file
+- `-r`:	Remove read permission from the file
+- `+w`:	Add write permission to the file
+- `-w`:	Remove write permission from the file
+- `u`:	User (owner) permissions
+- `g`:	Group permissions
+- `o`:	Other users' permissions
+- `a`:	All users' permissions
 
-### c. `chown`
-The chown command stands for "change owner", and allows you to change the owner of a given file or folder, which can be a user and a group. Basic usage is simple forward first comes the user (owner), and then the group, delimited by a colon.
+Example:
 ```bash
-chown -options user:group filename
+chmod +x script.sh         # Add execute permission to script.sh
+chmod u+x file.txt         # Add execute permission for owner
+chmod g-w file.txt         # Remove write permission from group
+chmod o=r file.txt         # Set read permission for others only
+chmod a+rwx myfolder       # Give read, write, and execute permission to everyone
+chmod 755 script.sh        # Set permissions to rwxr-xr-x (755)
+```
+- 4 (read): Read permission
+- 2 (write): Write permission
+- 1 (execute): Execute permission
+
+### 2.3. `chown`
+The chown (change owner) command allows you to change the user and/or group ownership of a file or directory.
+
+```bash
+chown [options] user[:group] filename
 ```
 
-### d. `cp`
+Common Options:
+- `-R`: Recursively change ownership of directory and its contents.
+- `-v`: Verbose; show files as they are processed.
+- `-f`: Suppress most error messages.
+
+Example:
+```bash
+chown alice file.txt            # Change owner to 'alice', keep group unchanged
+chown alice:developers file.txt # Change owner to 'alice' and group to 'developers'
+chown :developers file.txt      # Change only the group to 'developers'
+chown -R alice: staff/          # Recursively change owner and group of everything in 'staff' directory
+```
+
+### 2.4. `cp`
 Copies a file from one location to other.  
 ```bash
 cp filename1 filename2
 ```
 Where `filename1` is the source path to the file and `filename2` is the destination path to the file.
 
-### e. `diff`
-Compares files, and lists their differences.  
+Common options:
+- `-r`: Copy directories recursively. Use this option when you want to copy entire directories, including subdirectories and files.
+- `-i`: Prompt before overwriting. This option asks for confirmation before overwriting an existing file in the destination.
+
+Example:
 ```bash
-diff filename1 filename2
+anngo@anngo-Vostro-5620:~$ cp file.txt Documents/
+
+anngo@anngo-Vostro-5620:~$ ls -t
+another_file.txt                        actor.csv
+combined_file.txt                       snap
+file.txt                                WebstormProjects
+bash-guide                              AndroidStudioProjects
+greet.sh                                Android
+Downloads                               Pictures
+Desktop                                 Music
+IdeaProjects                            Public
+Documents                               Templates
+SA_CS5                                  Videos
+google-chrome-stable_current_amd64.deb
+
+anngo@anngo-Vostro-5620:~$ ls -t Documents/
+ file.txt              demo-mysql      ThucHanh                      test.txt
+ Typescript-tutorial   dvdrental.sql  'Java streams aggregate.txt'
+ password.txt          node_demo       x1.txt
+ SA_CS5                money.txt       x2.txt
+
+anngo@anngo-Vostro-5620:~
 ```
 
-### f. `file`
+### 2.5. `diff`
+Compares files, and lists their differences.  
+```bash
+anngo@anngo-Vostro-5620:~$ cat file.txt 
+Hello, this is a sample file.
+It contains multiple lines of text.
+This is the third line
+
+anngo@anngo-Vostro-5620:~$ cat another_file.txt 
+Hello, this is a sample file.
+It contains multiple lines of text.
+This is the third line
+
+anngo@anngo-Vostro-5620:~$ diff file.txt combined_file.txt 
+3a4,5
+> This is another file.
+> It has some different content.
+
+anngo@anngo-Vostro-5620:~$ diff file.txt another_file.txt
+
+anngo@anngo-Vostro-5620:~$
+```
+
+### 2.6. `file`
 Determine file type.  
 ```bash
 file filename
 ```
 Example:
 ```bash
-$ file index.html
- index.html: HTML document, ASCII text
+anngo@anngo-Vostro-5620:~$ ls -t
+script.sh       bash-guide    google-chrome-stable_current_amd64.deb  Pictures
+folder          greet.sh      actor.csv                               Music
+data.csv        Downloads     snap                                    Public
+file1.txt       Desktop       WebstormProjects                        Templates
+Documents       IdeaProjects  AndroidStudioProjects                   Videos
+other_file.txt  SA_CS5        Android
+anngo@anngo-Vostro-5620:~$ file greet.sh 
+greet.sh: Bourne-Again shell script, ASCII text executable
+anngo@anngo-Vostro-5620:~$ file file1.txt
+file1.txt: empty
+anngo@anngo-Vostro-5620:~$ file other_file.txt 
+other_file.txt: ASCII text
+anngo@anngo-Vostro-5620:~$ cat greet.sh 
+#! /bin/bash
+
+echo "Enter your name:"
+read name
+
+echo "Hello $name!"
+anngo@anngo-Vostro-5620:~$ cat file1.txt 
+anngo@anngo-Vostro-5620:~$ cat other_file.txt 
+Hello, this is a sample file.
+It contains multiple lines of text.
+This is the third line
+anngo@anngo-Vostro-5620:~$
 ```
-### g. `find`
+
+### 2.7. `find`
 Find files in directory
 ```bash
 find directory options pattern
 ```
+
 Example:
 ```bash
-$ find . -name README.md
-$ find /home/user1 -name '*.png'
+anngo@anngo-Vostro-5620:~$ ls -t
+script.sh       bash-guide    google-chrome-stable_current_amd64.deb  Pictures
+folder          greet.sh      actor.csv                               Music
+data.csv        Downloads     snap                                    Public
+file1.txt       Desktop       WebstormProjects                        Templates
+Documents       IdeaProjects  AndroidStudioProjects                   Videos
+other_file.txt  SA_CS5        Android
+
+anngo@anngo-Vostro-5620:~$ find -type d -name "Android"
+./Android
+
+anngo@anngo-Vostro-5620:~$ find -type f -size +100M
+./.local/share/torbrowser/tbb/x86_64/tor-browser/Browser/libxul.so
+
+anngo@anngo-Vostro-5620:~$ find . -type f -name "*.log" -exec rm {} \;
 ```
 
-### h. `gunzip`
-Un-compresses files compressed by gzip.  
+### 2.8. `gunzip`
+The gunzip command is used to decompress files that were compressed using the gzip command. It removes the .gz extension and restores the original file.
 ```bash
 gunzip filename
 ```
 
-### i. `gzcat`
+Example:
+```bash
+anngo@anngo-Vostro-5620:~$ ls -t
+script.sh       bash-guide    google-chrome-stable_current_amd64.deb  Pictures
+folder          greet.sh      actor.csv.gz                            Music
+data.csv        Downloads     snap                                    Public
+file1.txt       Desktop       WebstormProjects                        Templates
+Documents       IdeaProjects  AndroidStudioProjects                   Videos
+other_file.txt  SA_CS5        Android
+
+anngo@anngo-Vostro-5620:~$ gunzip actor.csv.gz 
+
+anngo@anngo-Vostro-5620:~$ ls -t
+script.sh       bash-guide    google-chrome-stable_current_amd64.deb  Pictures
+folder          greet.sh      actor.csv                               Music
+data.csv        Downloads     snap                                    Public
+file1.txt       Desktop       WebstormProjects                        Templates
+Documents       IdeaProjects  AndroidStudioProjects                   Videos
+other_file.txt  SA_CS5        Android
+
+anngo@anngo-Vostro-5620:~$ 
+```
+
+### 2.9. `gzcat`
 Lets you look at gzipped file without actually having to gunzip it.  
 ```bash
 gzcat filename
 ```
 
-### j. `gzip`
-Compresses files.  
+Example:
+```bash
+anngo@anngo-Vostro-5620:~$ ls -t
+script.sh       bash-guide    google-chrome-stable_current_amd64.deb  Pictures
+folder          greet.sh      actor.csv.gz                            Music
+data.csv        Downloads     snap                                    Public
+file1.txt       Desktop       WebstormProjects                        Templates
+Documents       IdeaProjects  AndroidStudioProjects                   Videos
+other_file.txt  SA_CS5        Android
+
+anngo@anngo-Vostro-5620:~$ gzip other_file.txt 
+
+anngo@anngo-Vostro-5620:~$ ls -t
+script.sh          google-chrome-stable_current_amd64.deb
+folder             actor.csv.gz
+data.csv           snap
+file1.txt          WebstormProjects
+Documents          AndroidStudioProjects
+other_file.txt.gz  Android
+bash-guide         Pictures
+greet.sh           Music
+Downloads          Public
+Desktop            Templates
+IdeaProjects       Videos
+SA_CS5
+
+anngo@anngo-Vostro-5620:~$ zcat other_file.txt.gz 
+Hello, this is a sample file.
+It contains multiple lines of text.
+This is the third line
+
+anngo@anngo-Vostro-5620:~$
+```
+
+### 2.10. `gzip`
+The gzip command is used to compress files using the GNU zip compression algorithm. It replaces the original file with a compressed version and adds the .gz extension.
 ```bash
 gzip filename
 ```
+Common options:
+- `-k`: Keep the original file after compression.
+- `-d`: Decompress a .gz file (same as gunzip).
+- `-v`: Verbose output, shows compression details.
+- `-r`: Recursively compress all files in a directory.
 
-### k. `head`
-Outputs the first 10 lines of file  
+Example:
 ```bash
-head filename
+anngo@anngo-Vostro-5620:~$ ls -t
+script.sh       bash-guide    google-chrome-stable_current_amd64.deb  Pictures
+folder          greet.sh      actor.csv                               Music
+data.csv        Downloads     snap                                    Public
+file1.txt       Desktop       WebstormProjects                        Templates
+Documents       IdeaProjects  AndroidStudioProjects                   Videos
+other_file.txt  SA_CS5        Android
+
+anngo@anngo-Vostro-5620:~$ gzip actor.csv 
+
+anngo@anngo-Vostro-5620:~$ ls -t
+script.sh       bash-guide    google-chrome-stable_current_amd64.deb  Pictures
+folder          greet.sh      actor.csv.gz                            Music
+data.csv        Downloads     snap                                    Public
+file1.txt       Desktop       WebstormProjects                        Templates
+Documents       IdeaProjects  AndroidStudioProjects                   Videos
+other_file.txt  SA_CS5        Android
+
+anngo@anngo-Vostro-5620:~$
 ```
 
-### l. `less`
+### 2.11. `head`
+The head command is used to display the first few lines (default: 10) of a file. It is useful for quickly viewing the beginning content of a file.
+```bash
+head -n file.txt # n default 10
+```
+
+Example:
+```bash
+anngo@anngo-Vostro-5620:~$ cat file.txt 
+Hello, this is a sample file.
+It contains multiple lines of text.
+This is the third line.
+This is 4th line.
+This is 5th line.
+This is 6th line.
+7
+8
+9
+10
+11
+
+anngo@anngo-Vostro-5620:~$ head file.txt 
+Hello, this is a sample file.
+It contains multiple lines of text.
+This is the third line.
+This is 4th line.
+This is 5th line.
+This is 6th line.
+7
+8
+9
+10
+
+anngo@anngo-Vostro-5620:~$ head -5 file.txt 
+Hello, this is a sample file.
+It contains multiple lines of text.
+This is the third line.
+This is 4th line.
+This is 5th line.
+
+anngo@anngo-Vostro-5620:~$
+```
+
+### 2.12. `less`
 Shows the contents of a file or a command output, one page at a time. It is similar to [more](#q-more), but has more advanced features and allows you to navigate both forward and backward through the file.  
 ```bash
 less filename
 ```
 
-### m. `lpq`
-Check out the printer queue.  
+### 2.13. `ls`
+The `ls` command lists files and directories in the current working directory. It supports many options to customize the output.
+
+Syntax:
 ```bash
-lpq
+ls [OPTION]... [FILE]...
 ```
+Common Options:
+- `-l`: Use long listing format (includes permissions, ownership, size, and modification date).
+- `-a`: Include hidden files (those starting with .).
+- `-h`: With -l, print sizes in human-readable format (e.g., 1K, 234M).
+- `-R`: List subdirectories recursively.
+- `-S`: Sort files by size (largest first).
+- `-t`: Sort by modification time (newest first).
+- `-r`: Reverse order while sorting.
+
 Example:
 ```bash
-$ lpq
-Rank    Owner   Job     File(s)                         Total Size
-active  adnanad 59      demo                            399360 bytes
-1st     adnanad 60      (stdin)                         0 bytes
+anngo@anngo-Vostro-5620:~$ ls -l
+total 112636
+-rw-rw-r--  1 anngo anngo         0 Apr  5 17:04 actor.csv
+drwxrwxr-x  3 anngo anngo      4096 Mar  6 15:19 Android
+drwxrwxr-x  3 anngo anngo      4096 Mar  7 17:14 AndroidStudioProjects
+drwxrwxr-x  4 anngo anngo      4096 May  2 08:25 bash-guide
+drwxr-xr-x  2 anngo anngo      4096 Apr 24 16:27 Desktop
+drwxr-xr-x  7 anngo anngo      4096 May  2 09:46 Documents
+drwxr-xr-x 14 anngo anngo      4096 Apr 26 21:23 Downloads
+-rw-rw-r--  1 anngo anngo 115264952 Apr  9 00:27 google-chrome-stable_current_amd64.deb
+-rw-rw-r--  1 anngo anngo        69 May  1 23:06 greet.sh
+drwxrwxr-x  7 anngo anngo      4096 Apr 20 13:55 IdeaProjects
+drwxr-xr-x  2 anngo anngo      4096 Dec  6 19:04 Music
+-rw-rw-r--  1 anngo anngo        89 May  2 09:23 other_file.txt
+drwxr-xr-x  3 anngo anngo      4096 Feb  5 17:54 Pictures
+drwxr-xr-x  2 anngo anngo      4096 Dec  6 19:04 Public
+drwxrwxr-x  6 anngo anngo      4096 Apr 18 14:39 SA_CS5
+drwx------ 13 anngo anngo      4096 Apr  4 23:28 snap
+drwxr-xr-x  2 anngo anngo      4096 Dec  6 19:04 Templates
+drwxr-xr-x  2 anngo anngo      4096 Dec  6 19:04 Videos
+drwxrwxr-x  5 anngo anngo      4096 Mar 11 10:39 WebstormProjects
+
+anngo@anngo-Vostro-5620:~$ ls -t
+Documents       SA_CS5                                  Pictures
+other_file.txt  google-chrome-stable_current_amd64.deb  Music
+bash-guide      actor.csv                               Public
+greet.sh        snap                                    Templates
+Downloads       WebstormProjects                        Videos
+Desktop         AndroidStudioProjects
+IdeaProjects    Android
+
+anngo@anngo-Vostro-5620:~$ ls -l -a
+total 112908
+drwxr-x--- 37 anngo anngo      4096 May  2 09:49 .
+drwxr-xr-x  3 root  root       4096 Feb 18 11:21 ..
+-rw-rw-r--  1 anngo anngo         0 Apr  5 17:04 actor.csv
+drwxrwxr-x  4 anngo anngo      4096 Mar  7 17:17 .android
+drwxrwxr-x  3 anngo anngo      4096 Mar  6 15:19 Android
+drwxrwxr-x  3 anngo anngo      4096 Mar  7 17:14 AndroidStudioProjects
+drwxrwxr-x  4 anngo anngo      4096 May  2 08:25 bash-guide
+-rw-------  1 anngo anngo     49639 May  2 09:43 .bash_history
+-rw-------  1 anngo anngo     42157 Mar  2 11:48 .bash_history-04281.tmp
+-rw-------  1 anngo anngo     42171 Feb 20 15:27 .bash_history-07195.tmp
+-rw-------  1 anngo anngo         0 Apr 23 09:41 .bash_history-14693.tmp
+-rw-------  1 anngo anngo         0 Mar  4 00:30 .bash_history-25422.tmp
+-rw-r--r--  1 anngo anngo       220 Mar 31  2024 .bash_logout
+-rw-r--r--  1 anngo anngo      3771 Mar 31  2024 .bashrc
+drwx------ 29 anngo anngo      4096 Apr 23 09:41 .cache
+drwx------ 30 anngo anngo      4096 Apr 26 16:05 .config
+drwxr-xr-x  2 anngo anngo      4096 Apr 24 16:27 Desktop
+drwxr-xr-x  7 anngo anngo      4096 May  2 09:46 Documents
+drwxrwxr-x  3 anngo anngo      4096 Dec  7 10:41 .dotnet
+drwxr-xr-x 14 anngo anngo      4096 Apr 26 21:23 Downloads
+-rw-rw-r--  1 anngo anngo       136 Apr  2 16:20 .gitconfig
+drwxrwxr-x  2 anngo anngo      4096 May  2 08:25 .gk
+drwx------  2 anngo anngo      4096 Apr 16 13:34 .gnupg
+-rw-rw-r--  1 anngo anngo 115264952 Apr  9 00:27 google-chrome-stable_current_amd64.deb
+drwxrwxr-x 10 anngo anngo      4096 Mar  7 17:16 .gradle
+-rw-rw-r--  1 anngo anngo        69 May  1 23:06 greet.sh
+drwxrwxr-x  7 anngo anngo      4096 Apr 20 13:55 IdeaProjects
+drwxrwxr-x  4 anngo anngo      4096 Feb  7 17:37 .java
+drwxrwxr-x  3 anngo anngo      4096 Feb  7 21:15 .jdks
+-rw-------  1 anngo anngo        20 May  2 08:52 .lesshst
+drwx------  4 anngo anngo      4096 Dec  6 19:04 .local
+drwxrwxr-x  4 anngo anngo      4096 Feb  7 17:54 .m2
+drwx------  4 anngo anngo      4096 Apr  8 21:12 .mongodb
+drwxr-xr-x  2 anngo anngo      4096 Dec  6 19:04 Music
+-rw-------  1 anngo anngo       133 Apr  5 07:56 .mysql_history
+drwxrwxr-x  6 anngo anngo      4096 Mar  7 00:38 .npm
+drwxrwxr-x  3 anngo anngo      4096 Feb  7 17:56 .openjfx
+-rw-rw-r--  1 anngo anngo        89 May  2 09:23 other_file.txt
+drwx------  5 anngo anngo      4096 Apr 17 23:40 .pgadmin
+drwxr-xr-x  3 anngo anngo      4096 Feb  5 17:54 Pictures
+drwx------  3 anngo anngo      4096 Dec  7 10:27 .pki
+-rw-r--r--  1 anngo anngo       807 Mar 31  2024 .profile
+drwxr-xr-x  2 anngo anngo      4096 Dec  6 19:04 Public
+drwxrwxr-x  6 anngo anngo      4096 Apr 18 14:39 SA_CS5
+drwx------ 13 anngo anngo      4096 Apr  4 23:28 snap
+drwx------  2 anngo anngo      4096 Dec  6 19:04 .ssh
+-rw-r--r--  1 anngo anngo         0 Dec  6 21:51 .sudo_as_admin_successful
+drwxr-xr-x  2 anngo anngo      4096 Dec  6 19:04 Templates
+drwx------  3 anngo anngo      4096 Apr 14 21:32 .tor
+drwxr-xr-x  2 anngo anngo      4096 Dec  6 19:04 Videos
+-rw-------  1 anngo anngo      9426 Mar  3 17:34 .viminfo
+drwxrwxr-x  4 anngo anngo      4096 Dec  7 10:28 .vscode
+drwxrwxr-x  5 anngo anngo      4096 Mar 11 10:39 WebstormProjects
+-rw-rw-r--  1 anngo anngo       215 Apr 16 17:47 .wget-hsts
+-rw-rw-r--  1 anngo anngo       131 Dec  6 22:02 .xinputrc
+drwx------  8 anngo anngo      4096 Apr 26 16:05 .zoom
+
+anngo@anngo-Vostro-5620:~$
 ```
 
-### n. `lpr`
-Print the file.  
-```bash
-lpr filename
-```
+| Field Position | Example Value           | Description                                                                 |
+|----------------|-------------------------|-----------------------------------------------------------------------------|
+| 1              | `-rw-rw-r--`            | File type and permissions (explained below)                                |
+| 2              | `1`                     | Number of hard links                                                        |
+| 3              | `anngo`                 | Owner (user) of the file                                                    |
+| 4              | `anngo`                 | Group of the file                                                           |
+| 5              | `115264952`             | File size in bytes                                                          |
+| 6              | `Apr  9`                | Last modified month and day                                                |
+| 7              | `00:27` or `2024`       | Last modified time (if within 6 months) or year (if older than 6 months)   |
+| 8              | `google-chrome...deb`   | File or directory name                                                      |
 
-### o. `lprm`
-Remove something from the printer queue.  
-```bash
-lprm jobnumber
-```
 
-### p. `ls`
-Lists your files. `ls` has many options: `-l` lists files in 'long format', which contains the exact size of the file, who owns the file, who has the right to look at it, and when it was last modified. `-a` lists all files, including hidden files. For more information on this command check this [link](https://ss64.com/bash/ls.html).  
-```bash
-ls option
-```
-Example:
-<pre>
-$ ls -la
-rwxr-xr-x   33 adnan  staff    1122 Mar 27 18:44 .
-drwxrwxrwx  60 adnan  staff    2040 Mar 21 15:06 ..
--rw-r--r--@  1 adnan  staff   14340 Mar 23 15:05 .DS_Store
--rw-r--r--   1 adnan  staff     157 Mar 25 18:08 .bumpversion.cfg
--rw-r--r--   1 adnan  staff    6515 Mar 25 18:08 .config.ini
--rw-r--r--   1 adnan  staff    5805 Mar 27 18:44 .config.override.ini
-drwxr-xr-x  17 adnan  staff     578 Mar 27 23:36 .git
--rwxr-xr-x   1 adnan  staff    2702 Mar 25 18:08 .gitignore
-</pre>
+The first character indicates the file type:
 
-### q. `more`
+- `-` : regular file
+- `d` : directory
+- `l` : symbolic link
+- `c` : character device file
+- `b` : block device file
+- `s` : socket
+- `p` : named pipe (FIFO)
+
+The next 9 characters are the permissions:
+
+| Position | Meaning             |
+|----------|---------------------|
+| 2-4      | Owner permissions   |
+| 5-7      | Group permissions   |
+| 8-10     | Others' permissions |
+
+Each set can contain:
+
+- `r` = read
+- `w` = write
+- `x` = execute
+- `-` = no permission
+
+### 2.14. `more`
 Shows the first part of a file (move with space and type q to quit).  
 ```bash
 more filename
 ```
 
-### r. `mv`
+### 2.15. `mv`
 Moves a file from one location to other.  
 ```bash
 mv filename1 filename2
@@ -432,7 +820,53 @@ Also it can be used for rename a file.
 mv old_name new_name
 ```
 
-### s. `rm`
+Example:
+```bash
+nngo@anngo-Vostro-5620:~$ ls -t
+Documents                               actor.csv
+file.txt                                snap
+another_file.txt                        WebstormProjects
+combined_file.txt                       AndroidStudioProjects
+bash-guide                              Android
+greet.sh                                Pictures
+Downloads                               Music
+Desktop                                 Public
+IdeaProjects                            Templates
+SA_CS5                                  Videos
+google-chrome-stable_current_amd64.deb
+
+anngo@anngo-Vostro-5620:~$ mv file.txt Documents/
+
+anngo@anngo-Vostro-5620:~$ ls -t
+Documents          IdeaProjects                            Android
+another_file.txt   SA_CS5                                  Pictures
+combined_file.txt  google-chrome-stable_current_amd64.deb  Music
+bash-guide         actor.csv                               Public
+greet.sh           snap                                    Templates
+Downloads          WebstormProjects                        Videos
+Desktop            AndroidStudioProjects
+
+anngo@anngo-Vostro-5620:~$ ls -t Documents/
+ file.txt              demo-mysql      ThucHanh                      test.txt
+ Typescript-tutorial   dvdrental.sql  'Java streams aggregate.txt'
+ password.txt          node_demo       x1.txt
+ SA_CS5                money.txt       x2.txt
+
+anngo@anngo-Vostro-5620:~$ mv another_file.txt other_file.txt
+
+anngo@anngo-Vostro-5620:~$ ls -t
+Documents          IdeaProjects                            Android
+other_file.txt     SA_CS5                                  Pictures
+combined_file.txt  google-chrome-stable_current_amd64.deb  Music
+bash-guide         actor.csv                               Public
+greet.sh           snap                                    Templates
+Downloads          WebstormProjects                        Videos
+Desktop            AndroidStudioProjects
+
+anngo@anngo-Vostro-5620:~$
+```
+
+### 2.16. `rm`
 Removes a file. Using this command on a directory gives you an error.
 `rm: directory: is a directory`
 To remove a directory you have to pass `-r` which will remove the content of the directory recursively. Optionally you can use `-f` flag to force the deletion i.e. without any confirmations etc.
@@ -440,23 +874,116 @@ To remove a directory you have to pass `-r` which will remove the content of the
 rm filename
 ```
 
-### t. `tail`
-Outputs the last 10 lines of file. Use `-f` to output appended data as the file grows.  
-```bash
-tail filename
-```
-
-### u. `touch`
-Updates access and modification time stamps of your file. If it doesn't exists, it'll be created.
-```bash
-touch filename
-```
 Example:
 ```bash
-$ touch trick.md
+anngo@anngo-Vostro-5620:~$ mkdir demo
+
+anngo@anngo-Vostro-5620:~$ cd demo/
+
+anngo@anngo-Vostro-5620:~/demo$ touch file1.txt file2.txt
+
+anngo@anngo-Vostro-5620:~/demo$ cd ..
+
+anngo@anngo-Vostro-5620:~$ ls -t
+demo                                    actor.csv
+Documents                               snap
+other_file.txt                          WebstormProjects
+combined_file.txt                       AndroidStudioProjects
+bash-guide                              Android
+greet.sh                                Pictures
+Downloads                               Music
+Desktop                                 Public
+IdeaProjects                            Templates
+SA_CS5                                  Videos
+google-chrome-stable_current_amd64.deb
+
+anngo@anngo-Vostro-5620:~$ rm combined_file.txt 
+
+anngo@anngo-Vostro-5620:~$ ls -t
+demo            IdeaProjects                            Android
+Documents       SA_CS5                                  Pictures
+other_file.txt  google-chrome-stable_current_amd64.deb  Music
+bash-guide      actor.csv                               Public
+greet.sh        snap                                    Templates
+Downloads       WebstormProjects                        Videos
+Desktop         AndroidStudioProjects
+
+anngo@anngo-Vostro-5620:~$ ls -t demo/
+file1.txt  file2.txt
+
+anngo@anngo-Vostro-5620:~$ rm -r demo/
+
+anngo@anngo-Vostro-5620:~$ ls -t
+Documents       SA_CS5                                  Pictures
+other_file.txt  google-chrome-stable_current_amd64.deb  Music
+bash-guide      actor.csv                               Public
+greet.sh        snap                                    Templates
+Downloads       WebstormProjects                        Videos
+Desktop         AndroidStudioProjects
+IdeaProjects    Android
+
+anngo@anngo-Vostro-5620:~$
 ```
 
-## 1.2. Text Operations
+### 2.17. `tail`
+The tail command displays the last part (by default, the last 10 lines) of a file. It's useful for checking recent entries in log files or monitoring file changes in real-time.
+
+```bash
+tail -n filename # n default 10
+```
+
+Example:
+```bash
+anngo@anngo-Vostro-5620:~$ tail file.txt
+This is 3rd line.
+This is 4th line.
+This is 5th line.
+This is 6th line.
+7
+8
+9
+10
+11
+12
+
+anngo@anngo-Vostro-5620:~$ tail -5 file.txt
+8
+9
+10
+11
+12
+
+anngo@anngo-Vostro-5620:~$
+```
+
+### 2.18. `touch`
+Updates access and modification time stamps of your file. If it doesn't exists, it'll be created.
+```bash
+touch [options] filename
+```
+
+Common Options for touch
+- `-c`:	Do not create the file if it does not exist
+- `-a`:	Change only the access time
+- `-m`:	Change only the modification time
+- `-t [[CC]YY]MMDDhhmm[.ss]`:	Use a specific timestamp (custom date and time)
+
+Example:
+```bash
+anngo@anngo-Vostro-5620:~$ touch file1.txt
+anngo@anngo-Vostro-5620:~$ ls -t
+file1.txt       IdeaProjects                            Android
+Documents       SA_CS5                                  Pictures
+other_file.txt  google-chrome-stable_current_amd64.deb  Music
+bash-guide      actor.csv                               Public
+greet.sh        snap                                    Templates
+Downloads       WebstormProjects                        Videos
+Desktop         AndroidStudioProjects
+
+anngo@anngo-Vostro-5620:~$
+```
+
+## 3. Text Operations
 
 <table>
     <tr>

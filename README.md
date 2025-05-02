@@ -25,21 +25,69 @@
 
 # 1. Basic Operations
 
-### a. `export`
-Displays all environment variables. If you want to get details of a specific variable, use `echo $VARIABLE_NAME`.  
+### a. `export` - `echo` - `unset` - `env` - `printenv`
+The `export` command is used to set environment variables or display all exported variables in the current shell session. 
+
+If you want to get details of a specific variable, you can use `echo $VARIABLE_NAME`. 
+
+To remove a variable, you can use the `unset` command. 
+
+You can also use `env` or `printenv` to display the environment variables in different formats.
+
 ```bash
-export
+export VARIABLE_NAME=value    # Set a variable and export it
+export                        # List all exported environment variables
 ```
+
 Example:
 ```bash
-$ export
-AWS_HOME=/Users/adnanadnan/.aws
-LANG=en_US.UTF-8
-LC_CTYPE=en_US.UTF-8
-LESS=-R
+anngo@anngo-Vostro-5620:~$ export
+declare -x COLORTERM="truecolor"
+declare -x DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/1000/bus"
+declare -x DEBUGINFOD_URLS="https://debuginfod.ubuntu.com "
+declare -x DESKTOP_SESSION="ubuntu"
+declare -x DISPLAY=":0"
+declare -x GDMSESSION="ubuntu"
+declare -x GNOME_DESKTOP_SESSION_ID="this-is-deprecated"
+declare -x GNOME_KEYRING_CONTROL="/run/user/1000/keyring"
+declare -x GNOME_SETUP_DISPLAY=":1"
+declare -x GNOME_SHELL_SESSION_MODE="ubuntu"
+declare -x GNOME_TERMINAL_SCREEN="/org/gnome/Terminal/screen/0886bda4_ca43_429c_9e3e_496965e8b417"
+...
 
-$ echo $AWS_HOME
-/Users/adnanadnan/.aws
+anngo@anngo-Vostro-5620:~$
+```
+
+```bash
+anngo@anngo-Vostro-5620:~$ export MY_NAME="AnNgo"
+
+anngo@anngo-Vostro-5620:~$ export MY_PROJECT="DemoProject"
+
+anngo@anngo-Vostro-5620:~$ export GREETING="Hello, world!"
+
+anngo@anngo-Vostro-5620:~$ echo $MY_NAME
+AnNgo
+
+anngo@anngo-Vostro-5620:~$ echo $MY_PROJECT
+DemoProject
+
+anngo@anngo-Vostro-5620:~$ echo $GREETING
+Hello, world!
+
+anngo@anngo-Vostro-5620:~$ printenv
+SHELL=/bin/bash
+SESSION_MANAGER=local/anngo-Vostro-5620:@/tmp/.ICE-unix/2796,unix/anngo-Vostro-5620:/tmp/.ICE-unix/2796
+QT_ACCESSIBILITY=1
+COLORTERM=truecolor
+XDG_CONFIG_DIRS=/etc/xdg/xdg-ubuntu:/etc/xdg
+XDG_MENU_PREFIX=gnome-
+GNOME_DESKTOP_SESSION_ID=this-is-deprecated
+GNOME_KEYRING_CONTROL=/run/user/1000/keyring
+GNOME_SHELL_SESSION_MODE=ubuntu
+SSH_AUTH_SOCK=/run/user/1000/keyring/ssh
+...
+
+anngo@anngo-Vostro-5620:~$
 ```
 
 ### b. `whatis`
@@ -49,30 +97,157 @@ whatis something
 ```
 Example:
 ```bash
-$ whatis bash
-bash (1)             - GNU Bourne-Again SHell
+anngo@anngo-Vostro-5620:~$ whatis java
+java (1)             - launch a Java application
+
+anngo@anngo-Vostro-5620:~$ whatis ls
+ls (1)               - list directory contents
+
+anngo@anngo-Vostro-5620:~$ whatis whatis
+whatis (1)           - display one-line manual page descriptions
+
+anngo@anngo-Vostro-5620:~$ whatis sudo
+sudo (8)             - execute a command as another user
+
+anngo@anngo-Vostro-5620:~$ whatis pwd
+pwd (1)              - print name of current/working directory
+
+anngo@anngo-Vostro-5620:~$
 ```
 
 ### c. `whereis`
-whereis searches for executables, source files, and manual pages using a database built by system automatically.
+`whereis` searches for executables, source files, and manual pages using a database built by system automatically.
 ```bash
 whereis name
 ```
+
+Commonly Used whereis Options
+
+| Option |	Description |
+|--------|---------------|
+| -b	| Search only for binary (executable) files. |
+| -m	| Search only for manual (man) pages. |
+| -s	| Search only for source (src) files. |
+| -l	| Display the directories being searched by `whereis`. |
+
 Example:
 ```bash
-$ whereis php
-/usr/bin/php
+anngo@anngo-Vostro-5620:~$ whereis java
+java: /usr/bin/java /usr/share/java /usr/share/man/man1/java.1.gz
+
+anngo@anngo-Vostro-5620:~$ whereis git
+git: /usr/bin/git /usr/share/man/man1/git.1.gz
+
+anngo@anngo-Vostro-5620:~$ whereis google-chrome
+google-chrome: /usr/bin/google-chrome /usr/share/man/man1/google-chrome.1.gz
+
+anngo@anngo-Vostro-5620:~$ whereis ls
+ls: /usr/bin/ls /usr/share/man/man1/ls.1.gz
+
+anngo@anngo-Vostro-5620:~$
+```
+
+```bash
+anngo@anngo-Vostro-5620:~$ whereis -b java
+java: /usr/bin/java /usr/share/java
+
+anngo@anngo-Vostro-5620:~$ whereis -b pwd
+pwd: /usr/bin/pwd
+
+anngo@anngo-Vostro-5620:~$ whereis -b whereis
+whereis: /usr/bin/whereis
+
+anngo@anngo-Vostro-5620:~$
+```
+
+```bash
+anngo@anngo-Vostro-5620:~$ whereis -m java
+java: /usr/share/man/man1/java.1.gz
+
+anngo@anngo-Vostro-5620:~$ whereis -m google-chrome
+google-chrome: /usr/share/man/man1/google-chrome.1.gz
+
+anngo@anngo-Vostro-5620:~$
+```
+
+```bash
+anngo@anngo-Vostro-5620:~$ whereis -l
+bin: /usr/bin
+bin: /usr/sbin
+bin: /usr/lib/x86_64-linux-gnu
+bin: /usr/lib
+bin: /usr/lib64
+bin: /etc
+bin: /usr/games
+bin: /usr/local/bin
+bin: /usr/local/sbin
+bin: /usr/local/etc
+bin: /usr/local/lib
+bin: /usr/local/games
+bin: /usr/include
+bin: /usr/local
+bin: /usr/libexec
+bin: /usr/share
+bin: /snap/bin
+man: /usr/share/man/cs
+man: /usr/share/man/da
+man: /usr/share/man/de
+man: /usr/share/man/es
+man: /usr/share/man/fi
+man: /usr/share/man/fr.ISO8859-1
+man: /usr/share/man/fr.UTF-8
+man: /usr/share/man/fr
+man: /usr/share/man/hr
+man: /usr/share/man/hu
+man: /usr/share/man/id
+man: /usr/share/man/it
+man: /usr/share/man/ja
+man: /usr/share/man/ko
+man: /usr/share/man/man1
+man: /usr/share/man/man2
+man: /usr/share/man/man3
+man: /usr/share/man/man4
+man: /usr/share/man/man5
+man: /usr/share/man/man6
+man: /usr/share/man/man7
+man: /usr/share/man/man8
+man: /usr/share/man/nl
+man: /usr/share/man/pl
+man: /usr/share/man/pt
+man: /usr/share/man/pt_BR
+man: /usr/share/man/ro
+man: /usr/share/man/ru
+man: /usr/share/man/sl
+man: /usr/share/man/sr
+man: /usr/share/man/sv
+man: /usr/share/man/tr
+man: /usr/share/man/uk
+man: /usr/share/man/zh_CN
+man: /usr/share/man/zh_TW
+man: /usr/share/info
+src: /usr/src/python3.12
+src: /usr/src/linux-hwe-6.11-headers-6.11.0-21
+src: /usr/src/linux-headers-6.11.0-21-generic
+src: /usr/src/linux-hwe-6.11-headers-6.11.0-24
+src: /usr/src/linux-headers-6.11.0-24-generic
+
+anngo@anngo-Vostro-5620:~$
 ```
 
 ### d. `which`
-which searches for executables in the directories specified by the environment variable PATH. This command will print the full path of the executable(s).
+`which` searches for executables in the directories specified by the environment variable `PATH`. This command will print the full path of the executable(s).
 ```bash
 which program_name 
 ```
 Example:
 ```bash
-$ which php
-/c/xampp/php/php
+anngo@anngo-Vostro-5620:~$ which java
+/usr/bin/java
+
+anngo@anngo-Vostro-5620:~$ which intellij-idea-community
+/snap/bin/intellij-idea-community
+
+anngo@anngo-Vostro-5620:~$
 ```
 
 ### e. clear

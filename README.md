@@ -6,7 +6,7 @@
   1. [Basic Operations](#1-basic-operations)  
   2. [File Operations](#2-file-operations)  
   3. [Text Operations](#3-text-operations)  
-    1.3. [Directory Operations](#13-directory-operations)  
+  4. [Directory Operations](#4-directory-operations)  
     1.4. [SSH, System Info & Network Operations](#14-ssh-system-info--network-operations)  
     1.5. [Process Monitoring Operations](#15-process-monitoring-operations)
   2. [Basic Shell Programming](#2-basic-shell-programming)  
@@ -250,7 +250,7 @@ anngo@anngo-Vostro-5620:~$ which intellij-idea-community
 anngo@anngo-Vostro-5620:~$
 ```
 
-### 1.5. clear
+### 1.5. `clear`
 Clears content on window.
 
 ## 2. File Operations
@@ -1005,11 +1005,11 @@ anngo@anngo-Vostro-5620:~$
    </tr>
 </table>
 
-### a. `awk`
-awk is the most useful command for handling text files. It operates on an entire file line by line. By default it uses whitespace to separate the fields. The most common syntax for awk command is
+### 3.1. `awk`
+`awk` is the most useful command for handling text files. It operates on an entire file line by line. By default it uses whitespace to separate the fields. The most common syntax for awk command is
 
 ```bash
-awk '/search_pattern/ { action_to_take_if_pattern_matches; }' file_to_parse
+awk 'search_pattern' '{ action_to_take_if_pattern_matches; }' file_to_parse
 ```
 
 Lets take following file `/etc/passwd`. Here's the sample data that this file contains:
@@ -1020,9 +1020,10 @@ bin:x:2:2:bin:/bin:/usr/sbin/nologin
 sys:x:3:3:sys:/dev:/usr/sbin/nologin
 sync:x:4:65534:sync:/bin:/bin/sync
 ```
+
 So now lets get only username from this file. Where `-F` specifies that on which base we are going to separate the fields. In our case it's `:`. `{ print $1 }` means print out the first matching field.
 ```bash
-awk -F':' '{ print $1 }' /etc/passwd
+awk -F ':' '{ print $1 }' /etc/passwd
 ```
 After running the above command you will get following output.
 ```
@@ -1035,177 +1036,84 @@ sync
 For more detail on how to use `awk`, check following [link](https://www.cyberciti.biz/faq/bash-scripting-using-awk).
 
 
-### b. `cut`
-Remove sections from each line of files
+### 3.2. `cut`
+The `cut` command is used to extract specific sections from each line of a file or from standard input. It allows you to cut out columns, characters, or fields based on delimiters.
+```bash
+cut OPTION [FILE...]
+```
+- `-f`: Specify the field number to extract. Fields are typically delimited by a specified character (default is tab).
+- `-d`: Define the delimiter that separates the fields (default is tab).
+- `-c`: Specify the character positions to extract instead of fields.
 
-*example.txt*
-```bash
-red riding hood went to the park to play
-```
-
-*show me columns 2 , 7 , and 9 with a space as a separator*
-```bash
-cut -d " " -f2,7,9 example.txt
-```
-```bash
-riding park play
-```
-
-### c. `echo`
-Display a line of text
-
-*display "Hello World"*
-```bash
-echo Hello World
-```
-```bash
-Hello World
-```
-
-*display "Hello World" with newlines between words*
-```bash
-echo -ne "Hello\nWorld\n"
-```
-```bash
-Hello
-World
-```
-
-### d. `egrep`
-Print lines matching a pattern - Extended Expression (alias for: 'grep -E')
-
-*example.txt*
-```bash
-Lorem ipsum
-dolor sit amet, 
-consetetur
-sadipscing elitr,
-sed diam nonumy
-eirmod tempor
-invidunt ut labore
-et dolore magna
-aliquyam erat, sed
-diam voluptua. At
-vero eos et
-accusam et justo
-duo dolores et ea
-rebum. Stet clita
-kasd gubergren,
-no sea takimata
-sanctus est Lorem
-ipsum dolor sit
-amet.
-```
-
-*display lines that have either "Lorem" or "dolor" in them.*
-```bash
-egrep '(Lorem|dolor)' example.txt
-or
-grep -E '(Lorem|dolor)' example.txt
-```
-```bash
-Lorem ipsum
-dolor sit amet,
-et dolore magna
-duo dolores et ea
-sanctus est Lorem
-ipsum dolor sit
-```
-
-### e. `fgrep`
-Print lines matching a pattern - FIXED pattern matching  (alias for: 'grep -F')
-
-*example.txt*
-```bash
-Lorem ipsum
-dolor sit amet,
-consetetur
-sadipscing elitr,
-sed diam nonumy
-eirmod tempor
-foo (Lorem|dolor) 
-invidunt ut labore
-et dolore magna
-aliquyam erat, sed
-diam voluptua. At
-vero eos et
-accusam et justo
-duo dolores et ea
-rebum. Stet clita
-kasd gubergren,
-no sea takimata
-sanctus est Lorem
-ipsum dolor sit
-amet.
-```
-
-*Find the exact string '(Lorem|dolor)' in example.txt*
-```bash
-fgrep '(Lorem|dolor)' example.txt
-or
-grep -F '(Lorem|dolor)' example.txt
-```
-```bash
-foo (Lorem|dolor) 
-```
-
-### f. `fmt`
-Simple optimal text formatter
-
-*example: example.txt (1 line)*
-```bash
-Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
-```
-
-*output the lines of example.txt to 20 character width*
-```bash
-cat example.txt | fmt -w 20
-```
-```bash
-Lorem ipsum
-dolor sit amet,
-consetetur
-sadipscing elitr,
-sed diam nonumy
-eirmod tempor
-invidunt ut labore
-et dolore magna
-aliquyam erat, sed
-diam voluptua. At
-vero eos et
-accusam et justo
-duo dolores et ea
-rebum. Stet clita
-kasd gubergren,
-no sea takimata
-sanctus est Lorem
-ipsum dolor sit
-amet.
-```
-
-### g. `grep`
-Looks for text inside files. You can use grep to search for lines of text that match one or many regular expressions, and outputs only the matching lines.  
-```bash
-grep pattern filename
-```
 Example:
 ```bash
-$ grep admin /etc/passwd
-_kadmin_admin:*:218:-2:Kerberos Admin Service:/var/empty:/usr/bin/false
-_kadmin_changepw:*:219:-2:Kerberos Change Password Service:/var/empty:/usr/bin/false
-_krb_kadmin:*:231:-2:Open Directory Kerberos Admin Service:/var/empty:/usr/bin/false
-```
-You can also force grep to ignore word case by using `-i` option. `-r` can be used to search all files under the specified directory, for example:
-```bash
-$ grep -r admin /etc/
-```
-And `-w` to search for words only. For more detail on `grep`, check following [link](https://www.cyberciti.biz/faq/grep-in-bash).
+anngo@anngo-Vostro-5620:~$ cat actor.csv 
+id,name,age,grade
+1,Alice,20,A
+2,Bob,21,B
+3,Charlie,19,A
+4,Diana,22,C
+5,Evan,20,B
 
-### h. `nl`
-Number lines of files
+anngo@anngo-Vostro-5620:~$ cut -f 2,3 -d ',' actor.csv 
+name,age
+Alice,20
+Bob,21
+Charlie,19
+Diana,22
+Evan,20
 
-*example.txt*
+anngo@anngo-Vostro-5620:~$ cut -d ',' -f 2 actor.csv
+name
+Alice
+Bob
+Charlie
+Diana
+Evan
+
+anngo@anngo-Vostro-5620:~$
+```
+
+### 3.3. `echo`
+Display a line of text
 ```bash
+echo [options] [string]
+```
+- `-n`: No newline character at the end (does not move to a new line after printing).
+- `-e`: Enable special characters, such as \n (newline), \t (tab), \\ (backslash).
+
+Example:
+```bash
+anngo@anngo-Vostro-5620:~$ echo "Hello world"
+Hello world
+
+anngo@anngo-Vostro-5620:~$ echo "Hello\nworld\n"
+Hello\nworld\n
+
+anngo@anngo-Vostro-5620:~$ echo -e "Hello\nworld\n"
+Hello
+world
+
+
+anngo@anngo-Vostro-5620:~$ echo -n "Hello\nworld\n"
+
+Hello\nworld\nanngo@anngo-Vostro-5620:~$
+```
+
+### 3.4. `fmt`
+The `fmt` command in Linux is used to format text paragraphs, wrapping lines to a specified width for better readability.
+```bash
+fmt [OPTION]... [FILE]...
+```
+- `-w N`: Set maximum line width to N characters (default is 75).
+- `-s`: Split lines only at sentence endings.
+- `-u`: Uniform spacing: removes extra spaces and trims lines.
+
+Example:
+```bash
+anngo@anngo-Vostro-5620:~$ cat example.txt
+Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+anngo@anngo-Vostro-5620:~$ cat example.txt | fmt -w 20
 Lorem ipsum
 dolor sit amet,
 consetetur
@@ -1225,178 +1133,318 @@ no sea takimata
 sanctus est Lorem
 ipsum dolor sit
 amet.
+
+anngo@anngo-Vostro-5620:~$
 ```
 
-*show example.txt with line numbers*
+### 3.5. `grep`
+The `grep` command is used to search for specific patterns within files. It stands for "global regular expression print," and it allows you to search for text that matches regular expressions and prints the matching lines to the terminal.
 ```bash
-nl -s". " example.txt 
+grep [options] pattern [file...]
 ```
+- `pattern`: The text or regular expression you want to search for.
+- `file`: The file(s) to search through.
+
+Common Options for grep:
+- `-i`: Ignore case (case-insensitive search).
+- `-r` or `-R`: Recursively search directories.
+- `-l`: Display only the names of files with matching lines.
+- `-n`: Show line numbers of matching lines.
+
+Example:
 ```bash
-     1. Lorem ipsum
-     2. dolor sit amet,
-     3. consetetur
-     4. sadipscing elitr,
-     5. sed diam nonumy
-     6. eirmod tempor
-     7. invidunt ut labore
-     8. et dolore magna
-     9. aliquyam erat, sed
-    10. diam voluptua. At
-    11. vero eos et
-    12. accusam et justo
-    13. duo dolores et ea
-    14. rebum. Stet clita
-    15. kasd gubergren,
-    16. no sea takimata
-    17. sanctus est Lorem
-    18. ipsum dolor sit
-    19. amet.
+anngo@anngo-Vostro-5620:~$ grep 'Linux' file1.txt 
+Hello, welcome to the world of Linux!
+It's a great way to learn Linux commands.
+Linux is a powerful operating system that is widely used by developers, system administrators, and hobbyists.
+Linux is a powerful operating system that is widely used by developers, system administrators, and hobbyists.
+Many popular websites and servers run on Linux-based systems because of its stability and performance.
+If you want to get deeper into Linux, there are many resources available online to help you learn.
+Hello, welcome to the world of Linux!
+Hello, welcome to the world of Linux!
+Linux is a powerful operating system that is widely used by developers, system administrators, and hobbyists.
+
+anngo@anngo-Vostro-5620:~$ grep -i 'linux' file1.txt 
+Hello, welcome to the world of Linux!
+It's a great way to learn Linux commands.
+Linux is a powerful operating system that is widely used by developers, system administrators, and hobbyists.
+Linux is a powerful operating system that is widely used by developers, system administrators, and hobbyists.
+Many popular websites and servers run on Linux-based systems because of its stability and performance.
+If you want to get deeper into Linux, there are many resources available online to help you learn.
+Hello, welcome to the world of Linux!
+Hello, welcome to the world of Linux!
+Linux is a powerful operating system that is widely used by developers, system administrators, and hobbyists.
+
+anngo@anngo-Vostro-5620:~$ grep -n 'Linux' file1.txt 
+1:Hello, welcome to the world of Linux!
+4:It's a great way to learn Linux commands.
+5:Linux is a powerful operating system that is widely used by developers, system administrators, and hobbyists.
+6:Linux is a powerful operating system that is widely used by developers, system administrators, and hobbyists.
+8:Many popular websites and servers run on Linux-based systems because of its stability and performance.
+9:If you want to get deeper into Linux, there are many resources available online to help you learn.
+10:Hello, welcome to the world of Linux!
+11:Hello, welcome to the world of Linux!
+12:Linux is a powerful operating system that is widely used by developers, system administrators, and hobbyists.
+
+anngo@anngo-Vostro-5620:~$ 
 ```
 
-### i. `sed`
-Stream editor for filtering and transforming text
-
-*example.txt*
+### 3.6. `nl`
+The `nl` command in Linux is used to number the lines of a file or output. It adds line numbers to the output, making it easier to track line numbers in text files.
 ```bash
-Hello This is a Test 1 2 3 4
-``` 
-
-*replace all spaces with hyphens*
-```bash
-sed 's/ /-/g' example.txt
-```
-```bash
-Hello-This-is-a-Test-1-2-3-4
+nl [OPTION]... [FILE]...
 ```
 
-*replace all digits with "d"*
+Example:
 ```bash
-sed 's/[0-9]/d/g' example.txt
-```
-```bash
-Hello This is a Test d d d d
+anngo@anngo-Vostro-5620:~$ nl file1.txt 
+     1	Hello, welcome to the world of Linux!
+     2	This is a simple example to test the wc command.
+     3	We will count the lines, words, and characters in this file.
+     4	It's a great way to learn Linux commands.
+     5	Linux is a powerful operating system that is widely used by developers, system administrators, and hobbyists.
+     6	Linux is a powerful operating system that is widely used by developers, system administrators, and hobbyists.
+     7	It is open-source, which means anyone can contribute to its development and modify it as per their needs.
+     8	Many popular websites and servers run on Linux-based systems because of its stability and performance.
+     9	If you want to get deeper into Linux, there are many resources available online to help you learn.
+    10	Hello, welcome to the world of Linux!
+    11	Hello, welcome to the world of Linux!
+    12	Linux is a powerful operating system that is widely used by developers, system administrators, and hobbyists.
+
+anngo@anngo-Vostro-5620:~$ nl -s ": " file1.txt 
+     1: Hello, welcome to the world of Linux!
+     2: This is a simple example to test the wc command.
+     3: We will count the lines, words, and characters in this file.
+     4: It's a great way to learn Linux commands.
+     5: Linux is a powerful operating system that is widely used by developers, system administrators, and hobbyists.
+     6: Linux is a powerful operating system that is widely used by developers, system administrators, and hobbyists.
+     7: It is open-source, which means anyone can contribute to its development and modify it as per their needs.
+     8: Many popular websites and servers run on Linux-based systems because of its stability and performance.
+     9: If you want to get deeper into Linux, there are many resources available online to help you learn.
+    10: Hello, welcome to the world of Linux!
+    11: Hello, welcome to the world of Linux!
+    12: Linux is a powerful operating system that is widely used by developers, system administrators, and hobbyists.
+
+anngo@anngo-Vostro-5620:~$ nl -v 10 file1.txt 
+    10	Hello, welcome to the world of Linux!
+    11	This is a simple example to test the wc command.
+    12	We will count the lines, words, and characters in this file.
+    13	It's a great way to learn Linux commands.
+    14	Linux is a powerful operating system that is widely used by developers, system administrators, and hobbyists.
+    15	Linux is a powerful operating system that is widely used by developers, system administrators, and hobbyists.
+    16	It is open-source, which means anyone can contribute to its development and modify it as per their needs.
+    17	Many popular websites and servers run on Linux-based systems because of its stability and performance.
+    18	If you want to get deeper into Linux, there are many resources available online to help you learn.
+    19	Hello, welcome to the world of Linux!
+    20	Hello, welcome to the world of Linux!
+    21	Linux is a powerful operating system that is widely used by developers, system administrators, and hobbyists.
+anngo@anngo-Vostro-5620:~$
 ```
 
-### j. `sort`
-Sort lines of text files
 
-*example.txt*
+
+
+### 3.7. `sort`
+`sort` is used to arrange lines in a file or input in alphabetical, numerical, or reverse order.
+
+- `-r`: Reverse the result of comparisons
+- `-n`: Compare according to numerical value
+- `-k N`: Sort by column number N
+- `-t CHAR`: Use CHAR as the field delimiter
+
+Example:
 ```bash
-f
-b
-c
-g
-a
-e
-d
+anngo@anngo-Vostro-5620:~$ sort -n number.txt 
+0
+1
+2
+3
+4
+5
+7
+8
+9
+10
+12
+15
+
+anngo@anngo-Vostro-5620:~$ sort file1.txt 
+Hello, welcome to the world of Linux!
+Hello, welcome to the world of Linux!
+Hello, welcome to the world of Linux!
+If you want to get deeper into Linux, there are many resources available online to help you learn.
+It is open-source, which means anyone can contribute to its development and modify it as per their needs.
+It's a great way to learn Linux commands.
+Linux is a powerful operating system that is widely used by developers, system administrators, and hobbyists.
+Linux is a powerful operating system that is widely used by developers, system administrators, and hobbyists.
+Linux is a powerful operating system that is widely used by developers, system administrators, and hobbyists.
+Many popular websites and servers run on Linux-based systems because of its stability and performance.
+This is a simple example to test the wc command.
+We will count the lines, words, and characters in this file.
+
+anngo@anngo-Vostro-5620:~$ sort -r file1.txt 
+We will count the lines, words, and characters in this file.
+This is a simple example to test the wc command.
+Many popular websites and servers run on Linux-based systems because of its stability and performance.
+Linux is a powerful operating system that is widely used by developers, system administrators, and hobbyists.
+Linux is a powerful operating system that is widely used by developers, system administrators, and hobbyists.
+Linux is a powerful operating system that is widely used by developers, system administrators, and hobbyists.
+It's a great way to learn Linux commands.
+It is open-source, which means anyone can contribute to its development and modify it as per their needs.
+If you want to get deeper into Linux, there are many resources available online to help you learn.
+Hello, welcome to the world of Linux!
+Hello, welcome to the world of Linux!
+Hello, welcome to the world of Linux!
+
+anngo@anngo-Vostro-5620:~$ sort -t ',' -k 2 actor.csv 
+1,Alice,20,A
+2,Bob,21,B
+3,Charlie,19,A
+4,Diana,22,C
+5,Evan,20,B
+id,name,age,grade
+
+anngo@anngo-Vostro-5620:~$ sort -t ',' -k 3 -r actor.csv 
+id,name,age,grade
+4,Diana,22,C
+2,Bob,21,B
+5,Evan,20,B
+1,Alice,20,A
+3,Charlie,19,A
+
+anngo@anngo-Vostro-5620:~$
 ```
 
-*sort example.txt*
-```bash
-sort example.txt
-```
-```bash
-a
-b
-c
-d
-e
-f
-g
-```
-
-*randomize a sorted example.txt*
-```bash
-sort example.txt | sort -R
-```
-```bash
-b
-f
-a
-c
-d
-g
-e
-```
-
-### k. `tr`
+### 3.8. `tr`
 Translate or delete characters
-
-*example.txt*
 ```bash
-Hello World Foo Bar Baz!
+tr [OPTION] SET1 [SET2]
 ```
 
-*take all lower case letters and make them upper case*
+Example:
 ```bash
-cat example.txt | tr 'a-z' 'A-Z' 
-```
-```bash
-HELLO WORLD FOO BAR BAZ!
+anngo@anngo-Vostro-5620:~$ cat file1.txt 
+Hello, welcome to the world of Linux!
+This is a simple example to test the wc command.
+We will count the lines, words, and characters in this file.
+It's a great way to learn Linux commands.
+Linux is a powerful operating system that is widely used by developers, system administrators, and hobbyists.
+Linux is a powerful operating system that is widely used by developers, system administrators, and hobbyists.
+It is open-source, which means anyone can contribute to its development and modify it as per their needs.
+Many popular websites and servers run on Linux-based systems because of its stability and performance.
+If you want to get deeper into Linux, there are many resources available online to help you learn.
+Hello, welcome to the world of Linux!
+Hello, welcome to the world of Linux!
+Linux is a powerful operating system that is widely used by developers, system administrators, and hobbyists.
+
+anngo@anngo-Vostro-5620:~$ cat file1.txt | tr 'a-z' 'A-Z'
+HELLO, WELCOME TO THE WORLD OF LINUX!
+THIS IS A SIMPLE EXAMPLE TO TEST THE WC COMMAND.
+WE WILL COUNT THE LINES, WORDS, AND CHARACTERS IN THIS FILE.
+IT'S A GREAT WAY TO LEARN LINUX COMMANDS.
+LINUX IS A POWERFUL OPERATING SYSTEM THAT IS WIDELY USED BY DEVELOPERS, SYSTEM ADMINISTRATORS, AND HOBBYISTS.
+LINUX IS A POWERFUL OPERATING SYSTEM THAT IS WIDELY USED BY DEVELOPERS, SYSTEM ADMINISTRATORS, AND HOBBYISTS.
+IT IS OPEN-SOURCE, WHICH MEANS ANYONE CAN CONTRIBUTE TO ITS DEVELOPMENT AND MODIFY IT AS PER THEIR NEEDS.
+MANY POPULAR WEBSITES AND SERVERS RUN ON LINUX-BASED SYSTEMS BECAUSE OF ITS STABILITY AND PERFORMANCE.
+IF YOU WANT TO GET DEEPER INTO LINUX, THERE ARE MANY RESOURCES AVAILABLE ONLINE TO HELP YOU LEARN.
+HELLO, WELCOME TO THE WORLD OF LINUX!
+HELLO, WELCOME TO THE WORLD OF LINUX!
+LINUX IS A POWERFUL OPERATING SYSTEM THAT IS WIDELY USED BY DEVELOPERS, SYSTEM ADMINISTRATORS, AND HOBBYISTS.
+
+anngo@anngo-Vostro-5620:~$ cat file1.txt | tr -d 'aioueAIOUE'
+Hll, wlcm t th wrld f Lnx!
+Ths s  smpl xmpl t tst th wc cmmnd.
+W wll cnt th lns, wrds, nd chrctrs n ths fl.
+t's  grt wy t lrn Lnx cmmnds.
+Lnx s  pwrfl prtng systm tht s wdly sd by dvlprs, systm dmnstrtrs, nd hbbysts.
+Lnx s  pwrfl prtng systm tht s wdly sd by dvlprs, systm dmnstrtrs, nd hbbysts.
+t s pn-src, whch mns nyn cn cntrbt t ts dvlpmnt nd mdfy t s pr thr nds.
+Mny pplr wbsts nd srvrs rn n Lnx-bsd systms bcs f ts stblty nd prfrmnc.
+f y wnt t gt dpr nt Lnx, thr r mny rsrcs vlbl nln t hlp y lrn.
+Hll, wlcm t th wrld f Lnx!
+Hll, wlcm t th wrld f Lnx!
+Lnx s  pwrfl prtng systm tht s wdly sd by dvlprs, systm dmnstrtrs, nd hbbysts.
+
+anngo@anngo-Vostro-5620:~$
 ```
 
-*take all spaces and make them into newlines*
+### 3.9. `uniq`
+The `uniq` command is used to filter out repeated lines in a file or input. It only prints unique lines, and it can also count occurrences of each line.
 ```bash
-cat example.txt | tr ' ' '\n'
-```
-```bash
-Hello
-World
-Foo
-Bar
-Baz!
+uniq [options] filename
 ```
 
-### l. `uniq`
-Report or omit repeated lines
+Example:
+```bash
+anngo@anngo-Vostro-5620:~$ cat file1.txt 
+Hello, welcome to the world of Linux!
+This is a simple example to test the wc command.
+We will count the lines, words, and characters in this file.
+It's a great way to learn Linux commands.
+Linux is a powerful operating system that is widely used by developers, system administrators, and hobbyists.
+Linux is a powerful operating system that is widely used by developers, system administrators, and hobbyists.
+It is open-source, which means anyone can contribute to its development and modify it as per their needs.
+Many popular websites and servers run on Linux-based systems because of its stability and performance.
+If you want to get deeper into Linux, there are many resources available online to help you learn.
+Hello, welcome to the world of Linux!
+Hello, welcome to the world of Linux!
+Linux is a powerful operating system that is widely used by developers, system administrators, and hobbyists.
 
-*example.txt*
-```bash
-a
-a
-b
-a
-b
-c
-d
-c
-```
-
-*show only unique lines of example.txt (first you need to sort it, otherwise it won't see the overlap)*
-```bash
-sort example.txt | uniq
-```
-```bash
-a
-b
-c
-d
-```
-
-*show the unique items for each line, and tell me how many instances it found*
-```bash
-sort example.txt | uniq -c
-```
-```bash
-    3 a
-    2 b
-    2 c
-    1 d
+anngo@anngo-Vostro-5620:~$ uniq file1.txt 
+Hello, welcome to the world of Linux!
+This is a simple example to test the wc command.
+We will count the lines, words, and characters in this file.
+It's a great way to learn Linux commands.
+Linux is a powerful operating system that is widely used by developers, system administrators, and hobbyists.
+It is open-source, which means anyone can contribute to its development and modify it as per their needs.
+Many popular websites and servers run on Linux-based systems because of its stability and performance.
+If you want to get deeper into Linux, there are many resources available online to help you learn.
+Hello, welcome to the world of Linux!
+Linux is a powerful operating system that is widely used by developers, system administrators, and hobbyists.
+anngo@anngo-Vostro-5620:~$
 ```
 
-### m. `wc`
+### 3.10. `wc`
 Tells you how many lines, words and characters there are in a file.  
 ```bash
-wc filename
+wc [options] filename
 ```
+- `-l`: Count lines only.
+- `-w`: Count words only.
+- `-c`: Count characters only.
+- `-m`: Count characters (including multi-byte characters).
+
 Example:
 ```bash
-$ wc demo.txt
-7459   15915  398400 demo.txt
-```
-Where `7459` is lines, `15915` is words and `398400` is characters.
+anngo@anngo-Vostro-5620:~$ cat file1.txt 
+Hello, welcome to the world of Linux!
+This is a simple example to test the wc command.
+We will count the lines, words, and characters in this file.
+It's a great way to learn Linux commands.
+Linux is a powerful operating system that is widely used by developers, system administrators, and hobbyists.
+It is open-source, which means anyone can contribute to its development and modify it as per their needs.
+Many popular websites and servers run on Linux-based systems because of its stability and performance.
+If you want to get deeper into Linux, there are many resources available online to help you learn.
 
-## 1.3. Directory Operations
+anngo@anngo-Vostro-5620:~$ wc -l file1.txt 
+8 file1.txt
+
+anngo@anngo-Vostro-5620:~$ wc -w file1.txt 
+103 file1.txt
+
+anngo@anngo-Vostro-5620:~$ wc -m file1.txt 
+608 file1.txt
+
+anngo@anngo-Vostro-5620:~$ wc -c file1.txt 
+608 file1.txt
+
+anngo@anngo-Vostro-5620:~$ wc file1.txt 
+  8 103 608 file1.txt
+
+anngo@anngo-Vostro-5620:~$
+```
+
+## 4. Directory Operations
 
 <table>
    <tr>
@@ -1406,21 +1454,40 @@ Where `7459` is lines, `15915` is words and `398400` is characters.
    </tr>
 </table>
 
-### a. `cd`
-Moves you from one directory to other. Running this  
+### 4.1. `cd`
+The `cd` command is used to move from one directory to another.
 ```bash
-$ cd
-```
-moves you to home directory. This command accepts an optional `dirname`, which moves you to that directory.
-```bash
-cd dirname
-```
-Switch to the previous working directory
-```bash
-cd -
+$ cd/path/to/directory
 ```
 
-### b. `mkdir`
+Example:
+```bash
+anngo@anngo-Vostro-5620:~$ pwd
+/home/anngo
+
+anngo@anngo-Vostro-5620:~$ ls -t
+example.txt        IdeaProjects
+number.txt         SA_CS5
+actor.csv          google-chrome-stable_current_amd64.deb
+file1.txt          snap
+script.sh          WebstormProjects
+folder             AndroidStudioProjects
+data.csv           Android
+Documents          Pictures
+other_file.txt.gz  Music
+bash-guide         Public
+greet.sh           Templates
+Downloads          Videos
+Desktop
+
+anngo@anngo-Vostro-5620:~$ cd Downloads/
+
+anngo@anngo-Vostro-5620:~/Downloads$ cd /
+
+anngo@anngo-Vostro-5620:/$
+```
+
+### 4.2. `mkdir`
 Makes a new directory.  
 ```bash
 mkdir dirname
@@ -1437,10 +1504,90 @@ mkdir --parents /samples/bash/projects/project1
 Both commands above will do the same thing.
 If any of these directories did no already exist, they would be created as well.
 
-### c. `pwd`
+### 4.3. `pwd`
 Tells you which directory you currently are in.  
 ```bash
 pwd
+```
+
+Example:
+```bash
+anngo@anngo-Vostro-5620:~$ pwd
+/home/anngo
+
+anngo@anngo-Vostro-5620:~$ ls -t
+example.txt        IdeaProjects
+number.txt         SA_CS5
+actor.csv          google-chrome-stable_current_amd64.deb
+file1.txt          snap
+script.sh          WebstormProjects
+folder             AndroidStudioProjects
+data.csv           Android
+Documents          Pictures
+other_file.txt.gz  Music
+bash-guide         Public
+greet.sh           Templates
+Downloads          Videos
+Desktop
+
+anngo@anngo-Vostro-5620:~$
+```
+
+### 4.4 `rmdir`
+The rmdir command is used to delete empty directories.
+It cannot remove a directory that contains files or subdirectories.
+```bash
+rmdir folder
+```
+
+Example:
+```bash
+anngo@anngo-Vostro-5620:~$ ls -t
+example.txt        IdeaProjects
+number.txt         SA_CS5
+actor.csv          google-chrome-stable_current_amd64.deb
+file1.txt          snap
+script.sh          WebstormProjects
+folder             AndroidStudioProjects
+data.csv           Android
+Documents          Pictures
+other_file.txt.gz  Music
+bash-guide         Public
+greet.sh           Templates
+Downloads          Videos
+Desktop
+
+anngo@anngo-Vostro-5620:~$ mkdir demo
+
+anngo@anngo-Vostro-5620:~$ ls -t
+demo         other_file.txt.gz                       WebstormProjects
+example.txt  bash-guide                              AndroidStudioProjects
+number.txt   greet.sh                                Android
+actor.csv    Downloads                               Pictures
+file1.txt    Desktop                                 Music
+script.sh    IdeaProjects                            Public
+folder       SA_CS5                                  Templates
+data.csv     google-chrome-stable_current_amd64.deb  Videos
+Documents    snap
+
+anngo@anngo-Vostro-5620:~$ rmdir demo
+
+anngo@anngo-Vostro-5620:~$ ls -t
+example.txt        IdeaProjects
+number.txt         SA_CS5
+actor.csv          google-chrome-stable_current_amd64.deb
+file1.txt          snap
+script.sh          WebstormProjects
+folder             AndroidStudioProjects
+data.csv           Android
+Documents          Pictures
+other_file.txt.gz  Music
+bash-guide         Public
+greet.sh           Templates
+Downloads          Videos
+Desktop
+
+anngo@anngo-Vostro-5620:~$
 ```
 
 ## 1.4. SSH, System Info & Network Operations

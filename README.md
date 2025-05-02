@@ -7,8 +7,9 @@
   2. [File Operations](#2-file-operations)  
   3. [Text Operations](#3-text-operations)  
   4. [Directory Operations](#4-directory-operations)  
-    1.4. [SSH, System Info & Network Operations](#14-ssh-system-info--network-operations)  
-    1.5. [Process Monitoring Operations](#15-process-monitoring-operations)
+  5. [System Info Operations](#5-system-info-operations)  
+  6. [Network Operations](#6-network-operations)  
+  7. [Process Monitoring Operations](#7-process-monitoring-operations)
   2. [Basic Shell Programming](#2-basic-shell-programming)  
     2.1. [Variables](#21-variables)  
     2.2. [Array](#22-array)  
@@ -254,33 +255,6 @@ anngo@anngo-Vostro-5620:~$
 Clears content on window.
 
 ## 2. File Operations
-<table>
-   <tr>
-      <td><a href="#a-cat">cat</a></td>
-      <td><a href="#b-chmod">chmod</a></td>
-      <td><a href="#c-chown">chown</a></td>
-      <td><a href="#d-cp">cp</a></td>
-      <td><a href="#e-diff">diff</a></td>
-      <td><a href="#f-file">file</a></td>
-      <td><a href="#g-find">find</a></td>
-      <td><a href="#h-gunzip">gunzip</a></td>
-      <td><a href="#i-gzcat">gzcat</a></td>
-      <td><a href="#j-gzip">gzip</a></td>
-      <td><a href="#k-head">head</a></td>
-   </tr>
-   <tr>
-      <td><a href="#l-less">less</a></td>
-      <td><a href="#m-lpq">lpq</a></td>
-      <td><a href="#n-lpr">lpr</a></td>
-      <td><a href="#o-lprm">lprm</a></td>
-      <td><a href="#p-ls">ls</a></td>
-      <td><a href="#q-more">more</a></td>
-      <td><a href="#r-mv">mv</a></td>
-      <td><a href="#s-rm">rm</a></td>
-      <td><a href="#t-tail">tail</a></td>
-      <td><a href="#u-touch">touch</a></td>
-   </tr>
-</table>
 
 ### 2.1. `cat`
 It can be used for the following purposes under UNIX or Linux.  
@@ -985,26 +959,6 @@ anngo@anngo-Vostro-5620:~$
 
 ## 3. Text Operations
 
-<table>
-    <tr>
-      <td><a href="#a-awk">awk</a></td>
-      <td><a href="#b-cut">cut</a></td>
-      <td><a href="#c-echo">echo</a></td>
-      <td><a href="#d-egrep">egrep</a></td>
-      <td><a href="#e-fgrep">fgrep</a></td>
-      <td><a href="#f-fmt">fmt</a></td>
-      <td><a href="#g-grep">grep</a></td>
-      <td><a href="#h-nl">nl</a></td>
-      <td><a href="#i-sed">sed</a></td>
-      <td><a href="#j-sort">sort</a></td>
-   </tr>
-   <tr>
-      <td><a href="#k-tr">tr</a></td>
-      <td><a href="#l-uniq">uniq</a></td>
-      <td><a href="#m-wc">wc</a></td>
-   </tr>
-</table>
-
 ### 3.1. `awk`
 `awk` is the most useful command for handling text files. It operates on an entire file line by line. By default it uses whitespace to separate the fields. The most common syntax for awk command is
 
@@ -1446,14 +1400,6 @@ anngo@anngo-Vostro-5620:~$
 
 ## 4. Directory Operations
 
-<table>
-   <tr>
-      <td><a href="#a-cd">cd</a></td>
-      <td><a href="#b-mkdir">mkdir</a></td>
-      <td><a href="#c-pwd">pwd</a></td>
-   </tr>
-</table>
-
 ### 4.1. `cd`
 The `cd` command is used to move from one directory to another.
 ```bash
@@ -1590,62 +1536,121 @@ Desktop
 anngo@anngo-Vostro-5620:~$
 ```
 
-## 1.4. SSH, System Info & Network Operations
+## 5. System Info Operations
 
-<table>
-   <tr>
-      <td><a href="#a-bg">bg</a></td>
-      <td><a href="#b-cal">cal</a></td>
-      <td><a href="#c-date">date</a></td>
-      <td><a href="#d-df">df</a></td>
-      <td><a href="#e-dig">dig</a></td>
-      <td><a href="#f-du">du</a></td>
-      <td><a href="#g-fg">fg</a></td>
-      <td><a href="#h-finger">finger</a></td>   
-      <td><a href="#i-jobs">jobs</a></td>
-      <td><a href="#j-last">last</a></td>
-   </tr>
-   <tr>
-      <td><a href="#k-man">man</a></td>
-      <td><a href="#l-passwd">passwd</a></td>
-      <td><a href="#m-ping">ping</a></td>
-      <td><a href="#n-ps">ps</a></td>
-      <td><a href="#o-quota">quota</a></td>
-      <td><a href="#p-scp">scp</a></td>
-      <td><a href="#q-ssh">ssh</a></td>
-      <td><a href="#r-top">top</a></td>
-      <td><a href="#s-uname">uname</a></td>
-      <td><a href="#t-uptime">uptime</a></td>
-   </tr>
-   <tr>
-      <td><a href="#u-w">w</a></td>
-      <td><a href="#v-wget">wget</a></td>
-      <td><a href="#w-whoami">whoami</a></td>
-      <td><a href="#x-whois">whois</a></td>
-      <td><a href="#y-rsync">sync</a></td>
-      <td><a href="#z-curl">curl</a></td>
-   </tr>
-</table>
-
-### a. `bg`
-Lists stopped or background jobs; resume a stopped job in the background.
-
-### b. `cal`
-Shows the month's calendar.
-
-### c. `date`
+### 5.1. `date`
 Shows the current date and time.
-
-### d. `df`
-Shows disk usage.
-
-### e. `dig`
-Gets DNS information for domain.  
 ```bash
-dig domain
+anngo@anngo-Vostro-5620:~$ date
+Fri May  2 09:22:48 PM +07 2025
+
+anngo@anngo-Vostro-5620:~$
 ```
 
-### f. `du`
+### 5.2. `df`
+Shows disk usage.
+```bash
+anngo@anngo-Vostro-5620:~$ df
+Filesystem     1K-blocks      Used Available Use% Mounted on
+tmpfs            1605200      2744   1602456   1% /run
+/dev/nvme0n1p6 188198800  53097372 125518684  30% /
+tmpfs            8025980     97540   7928440   2% /dev/shm
+tmpfs               5120         8      5112   1% /run/lock
+efivarfs             438       203       231  47% /sys/firmware/efi/efivars
+/dev/nvme0n1p1     98304     73543     24761  75% /boot/efi
+/dev/nvme0n1p4  27546620    837796  26708824   4% /media/anngo/E
+/dev/nvme0n1p5  64547836  20825944  43721892  33% /media/anngo/F
+/dev/nvme0n1p3 215945212 106920324 109024888  50% /media/anngo/Windows
+tmpfs            1605196       168   1605028   1% /run/user/1000
+
+anngo@anngo-Vostro-5620:~$
+```
+
+### 5.3. `whoami`
+Return current logged in username.
+```bash
+anngo@anngo-Vostro-5620:~$ whoami
+anngo
+
+anngo@anngo-Vostro-5620:~$
+```
+
+### 5.4. `man`
+Shows the manual for specified command.  
+```bash
+anngo@anngo-Vostro-5620:~$ man ls
+```
+
+### 5.5. `top`
+Displays your currently active processes.
+```bash
+anngo@anngo-Vostro-5620:~$ top
+```
+
+### 5.6. `ps`
+The `ps` command is used to list the processes that are currently running on your system. It can show you information about active processes, such as their IDs, the user who started them, and the command that initiated them.
+```bash
+ps [options]
+```
+- `ps -e` or `ps -A`: Lists all processes currently running on the system (equivalent to ps -ef but without the full details).
+- `ps -f`: Shows a full listing of process details, including PID, PPID, the TTY, time, and the command.
+- `ps -aux`: Lists all processes for all users with full details. This is often used in combination with grep to filter processes.
+- `ps -u <user>`: Displays processes belonging to a specific user.
+
+Example:
+```bash
+anngo@anngo-Vostro-5620:~$ ps -ef
+UID          PID    PPID  C STIME TTY          TIME CMD
+root           1       0  0 21:33 ?        00:00:02 /sbin/init splash
+root           2       0  0 21:33 ?        00:00:00 [kthreadd]
+root           3       2  0 21:33 ?        00:00:00 [pool_workqueue_release]
+root           4       2  0 21:33 ?        00:00:00 [kworker/R-rcu_gp]
+root           5       2  0 21:33 ?        00:00:00 [kworker/R-sync_wq]
+root           6       2  0 21:33 ?        00:00:00 [kworker/R-slub_flushwq]
+root           7       2  0 21:33 ?        00:00:00 [kworker/R-netns]
+...
+```
+
+- `UID`: The user ID (UID) of the user who owns the process.
+- `PID`: The Process ID (PID) is a unique identifier for the process.
+- `PPID`: The Parent Process ID (PPID) is the process ID of the parent process that spawned this process.
+- `C`: The CPU usage percentage of the process (how much CPU the process is using).
+- `STIME`: The start time of the process (the time when the process started).
+- `TTY`: The terminal type or device associated with the process. If it’s a ?, it means the process is not attached to any terminal.
+- `TIME`: The total CPU time the process has consumed since it started.
+- `CMD`: The command that started the process or the name of the program.
+
+Example:
+```bash
+UID   PID  PPID  C STIME TTY      TIME CMD
+root    1    0   0 21:33 ?        00:00:02 /sbin/init splash
+root    2    0   0 21:33 ?        00:00:00 [kthreadd]
+```
+- `UID`: The process is owned by the user `root`.
+- `PID`: Each process has a unique `PID`, for example `1`.
+- `PPID`: The parent process `ID` for `PID 1` is `0` (no parent process).
+- `C`: The process is not using any CPU (`0` means no CPU usage).
+- `STIME`: The process started at `21:33`.
+- `TTY`: No terminal associated with the process, marked by `?`.
+- `TIME`: The process has used `00:00:02` of CPU time.
+- `CMD`: The command that started the process is `/sbin/init splash`.
+
+
+### 5.7. `uname`
+Shows kernel information.  
+```bash
+uname [options]
+```
+
+Example:
+```bash
+anngo@anngo-Vostro-5620:~$ uname -a
+Linux anngo-Vostro-5620 6.11.0-24-generic #24~24.04.1-Ubuntu SMP PREEMPT_DYNAMIC Tue Mar 25 20:14:34 UTC 2 x86_64 x86_64 x86_64 GNU/Linux
+
+anngo@anngo-Vostro-5620:~$
+```
+
+### 5.8. `du`
 Shows the disk usage of files or directories. For more information on this command check this [link](http://www.linfo.org/du.html)
 ```bash
 du [option] [filename|directory]
@@ -1656,131 +1661,325 @@ Options:
 
 Example:
 ```bash
-du -sh pictures
-1.4M pictures
+anngo@anngo-Vostro-5620:~$ du -h Documents/
+4.0K	Documents/Typescript-tutorial/.git/branches
+68K	Documents/Typescript-tutorial/.git/hooks
+8.0K	Documents/Typescript-tutorial/.git/info
+8.0K	Documents/Typescript-tutorial/.git/refs/heads
+4.0K	Documents/Typescript-tutorial/.git/refs/tags
+12K	Documents/Typescript-tutorial/.git/refs/remotes/origin
+16K	Documents/Typescript-tutorial/.git/refs/remotes
+32K	Documents/Typescript-tutorial/.git/refs
+...
 ```
 
-### g. `fg`
-Brings the most recent job in the foreground.
-
-### h. `finger`
-Displays information about user.  
+### 5.9. `free`
+Displays the amount of free and used memory in the system, including swap space.
 ```bash
-finger username
-```
-### i. `jobs`
-Lists the jobs running in the background, giving the job number.
+anngo@anngo-Vostro-5620:~$ free -h
+               total        used        free      shared  buff/cache   available
+Mem:            15Gi       4.9Gi       8.4Gi       1.1Gi       3.5Gi        10Gi
+Swap:          4.0Gi          0B       4.0Gi
 
-### j. `last`
+anngo@anngo-Vostro-5620:~$
+```
+
+### 5.10. `lscpu`
+Shows information about the CPU architecture, such as the number of CPUs, cores, threads, and CPU model.
+
+```bash
+anngo@anngo-Vostro-5620:~$ lscpu
+Architecture:             x86_64
+  CPU op-mode(s):         32-bit, 64-bit
+  Address sizes:          39 bits physical, 48 bits virtual
+  Byte Order:             Little Endian
+CPU(s):                   16
+  On-line CPU(s) list:    0-15
+Vendor ID:                GenuineIntel
+  Model name:             12th Gen Intel(R) Core(TM) i5-1240P
+    CPU family:           6
+    Model:                154
+    Thread(s) per core:   2
+    Core(s) per socket:   12
+    Socket(s):            1
+    Stepping:             3
+    CPU(s) scaling MHz:   24%
+    CPU max MHz:          4400.0000
+    CPU min MHz:          400.0000
+    BogoMIPS:             4224.00
+    Flags:                fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc ar
+                          t arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf tsc_known_freq pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 
+                          xtpr pdcm sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb ssbd ibrs ibpb stibp ibrs_enhance
+                          d tpr_shadow flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid rdseed adx smap clflushopt clwb intel_pt sha_ni xsaveopt xsavec xgetb
+                          v1 xsaves split_lock_detect user_shstk avx_vnni dtherm ida arat pln pts hwp hwp_notify hwp_act_window hwp_epp hwp_pkg_req hfi vnmi umip pku ospke waitpkg gfni vaes 
+                          vpclmulqdq rdpid movdiri movdir64b fsrm md_clear serialize arch_lbr ibt flush_l1d arch_capabilities
+Virtualization features:  
+  Virtualization:         VT-x
+Caches (sum of all):      
+  L1d:                    448 KiB (12 instances)
+  L1i:                    640 KiB (12 instances)
+  L2:                     9 MiB (6 instances)
+  L3:                     12 MiB (1 instance)
+NUMA:                     
+  NUMA node(s):           1
+  NUMA node0 CPU(s):      0-15
+Vulnerabilities:          
+  Gather data sampling:   Not affected
+  Itlb multihit:          Not affected
+  L1tf:                   Not affected
+  Mds:                    Not affected
+  Meltdown:               Not affected
+  Mmio stale data:        Not affected
+  Reg file data sampling: Mitigation; Clear Register File
+  Retbleed:               Not affected
+  Spec rstack overflow:   Not affected
+  Spec store bypass:      Mitigation; Speculative Store Bypass disabled via prctl
+  Spectre v1:             Mitigation; usercopy/swapgs barriers and __user pointer sanitization
+  Spectre v2:             Mitigation; Enhanced / Automatic IBRS; IBPB conditional; RSB filling; PBRSB-eIBRS SW sequence; BHI BHI_DIS_S
+  Srbds:                  Not affected
+  Tsx async abort:        Not affected
+
+anngo@anngo-Vostro-5620:~$ 
+```
+
+### 5.11. `lsblk`
+Lists information about all available block devices, such as hard drives, partitions, and their mount points.
+
+```bash
+anngo@anngo-Vostro-5620:~$ lsblk
+NAME        MAJ:MIN RM   SIZE RO TYPE MOUNTPOINTS
+loop0         7:0    0   1.3G  1 loop /snap/android-studio/189
+loop1         7:1    0   1.3G  1 loop /snap/android-studio/187
+loop2         7:2    0     4K  1 loop /snap/bare/5
+loop3         7:3    0  55.4M  1 loop /snap/core18/2846
+loop4         7:4    0  55.4M  1 loop /snap/core18/2855
+loop5         7:5    0  63.7M  1 loop /snap/core20/2496
+loop6         7:6    0  63.8M  1 loop /snap/core20/2501
+loop7         7:7    0  73.9M  1 loop /snap/core22/1963
+loop8         7:8    0  73.9M  1 loop /snap/core22/1908
+loop9         7:9    0  66.2M  1 loop /snap/core24/739
+loop10        7:10   0  66.8M  1 loop /snap/core24/888
+...
+```
+
+### 5.12. `hostnamectl`
+Displays and allows you to set the system's hostname, which is the name that identifies the machine on a network.
+```bash
+anngo@anngo-Vostro-5620:~$ hostnamectl
+ Static hostname: anngo-Vostro-5620
+       Icon name: computer-laptop
+         Chassis: laptop 💻
+      Machine ID: 83a58e516c774783b546ad0e191eed66
+         Boot ID: 079419262fd14a49aff3ce98767a92c4
+Operating System: Ubuntu 24.04.1 LTS              
+          Kernel: Linux 6.11.0-24-generic
+    Architecture: x86-64
+ Hardware Vendor: Dell Inc.
+  Hardware Model: Vostro 5620
+Firmware Version: 1.25.0
+   Firmware Date: Thu 2024-09-12
+    Firmware Age: 7month 2w 5d
+
+anngo@anngo-Vostro-5620:~$
+```
+
+### 5.13 `lspci`
+Lists all PCI devices (e.g., graphics cards, network cards) connected to the system.
+```bash
+anngo@anngo-Vostro-5620:~$ lspci
+0000:00:00.0 Host bridge: Intel Corporation Device 4621 (rev 02)
+0000:00:02.0 VGA compatible controller: Intel Corporation Alder Lake-P GT2 [Iris Xe Graphics] (rev 0c)
+0000:00:04.0 Signal processing controller: Intel Corporation Alder Lake Innovation Platform Framework Processor Participant (rev 02)
+0000:00:06.0 System peripheral: Intel Corporation RST VMD Managed Controller
+0000:00:08.0 System peripheral: Intel Corporation 12th Gen Core Processor Gaussian & Neural Accelerator (rev 02)
+0000:00:0d.0 USB controller: Intel Corporation Alder Lake-P Thunderbolt 4 USB Controller (rev 02)
+0000:00:0e.0 RAID bus controller: Intel Corporation Volume Management Device NVMe RAID Controller
+0000:00:12.0 Serial controller: Intel Corporation Alder Lake-P Integrated Sensor Hub (rev 01)
+0000:00:14.0 USB controller: Intel Corporation Alder Lake PCH USB 3.2 xHCI Host Controller (rev 01)
+0000:00:14.2 RAM memory: Intel Corporation Alder Lake PCH Shared SRAM (rev 01)
+0000:00:14.3 Network controller: Intel Corporation Alder Lake-P PCH CNVi WiFi (rev 01)
+0000:00:15.0 Serial bus controller: Intel Corporation Alder Lake PCH Serial IO I2C Controller #0 (rev 01)
+0000:00:15.1 Serial bus controller: Intel Corporation Alder Lake PCH Serial IO I2C Controller #1 (rev 01)
+0000:00:16.0 Communication controller: Intel Corporation Alder Lake PCH HECI Controller (rev 01)
+0000:00:1d.0 PCI bridge: Intel Corporation Alder Lake PCI Express Root Port #9 (rev 01)
+0000:00:1f.0 ISA bridge: Intel Corporation Alder Lake PCH eSPI Controller (rev 01)
+0000:00:1f.3 Audio device: Intel Corporation Alder Lake PCH-P High Definition Audio Controller (rev 01)
+0000:00:1f.4 SMBus: Intel Corporation Alder Lake PCH-P SMBus Host Controller (rev 01)
+0000:00:1f.5 Serial bus controller: Intel Corporation Alder Lake-P PCH SPI Controller (rev 01)
+0000:01:00.0 Ethernet controller: Realtek Semiconductor Co., Ltd. RTL8111/8168/8211/8411 PCI Express Gigabit Ethernet Controller (rev 15)
+10000:e0:06.0 PCI bridge: Intel Corporation 12th Gen Core Processor PCI Express x4 Controller #0 (rev 02)
+10000:e1:00.0 Non-Volatile memory controller: SK hynix Gold P31/BC711/PC711 NVMe Solid State Drive
+
+anngo@anngo-Vostro-5620:~$ 
+```
+
+### 5.14. `uptime`
+Shows how long the system has been running, along with the current time, load averages, and number of users.
+
+```bash
+anngo@anngo-Vostro-5620:~$ uptime
+ 23:03:55 up  1:30,  1 user,  load average: 1.56, 1.45, 1.04
+
+anngo@anngo-Vostro-5620:~$ 
+```
+
+### 5.15. `lsusb`
+Lists all USB devices connected to the system.
+
+```bash
+anngo@anngo-Vostro-5620:~$ lsusb
+Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
+Bus 002 Device 001: ID 1d6b:0003 Linux Foundation 3.0 root hub
+Bus 003 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
+Bus 003 Device 002: ID 0c45:6a1b Microdia Integrated_Webcam_FHD
+Bus 003 Device 003: ID 8087:0026 Intel Corp. AX201 Bluetooth
+Bus 004 Device 001: ID 1d6b:0003 Linux Foundation 3.0 root hub
+
+anngo@anngo-Vostro-5620:~$
+```
+
+### 5.16. `who`
+Shows who is currently logged into the system.
+```bash
+anngo@anngo-Vostro-5620:~$ who
+anngo    seat0        2025-05-02 21:33 (login screen)
+anngo    tty2         2025-05-02 21:33 (tty2)
+
+anngo@anngo-Vostro-5620:~$
+```
+
+### 5.17. `w`
+Displays information about the users currently logged in, along with their processes and system load.
+
+```bash
+anngo@anngo-Vostro-5620:~$ w
+ 23:02:28 up  1:29,  1 user,  load average: 1.94, 1.53, 1.02
+USER     TTY      FROM             LOGIN@   IDLE   JCPU   PCPU WHAT
+anngo    tty2     -                21:33    1:29m  0.04s  0.04s /usr/libexec/gnome-session-binary --session=ubuntu
+
+anngo@anngo-Vostro-5620:~$
+```
+
+### 5.18 .`systemctl`
+Used to control the systemd system and service manager. It can manage services, such as starting, stopping, or restarting services, as well as viewing their status.
+```bash
+anngo@anngo-Vostro-5620:~$ sudo systemctl status elasticsearch
+[sudo] password for anngo: 
+○ elasticsearch.service - Elasticsearch
+     Loaded: loaded (/usr/lib/systemd/system/elasticsearch.service; enabled; preset: enabled)
+     Active: inactive (dead) since Fri 2025-05-02 22:08:27 +07; 1h 1min ago
+   Duration: 34min 44.375s
+       Docs: https://www.elastic.co
+    Process: 2387 ExecStart=/usr/share/elasticsearch/bin/systemd-entrypoint -p ${PID_DIR}/elasticsearch.pid --quiet (code=exited, status=143)
+   Main PID: 2387 (code=exited, status=143)
+        CPU: 1min 45.865s
+
+May 02 21:33:24 anngo-Vostro-5620 systemd[1]: Starting elasticsearch.service - Elasticsearch...
+May 02 21:33:42 anngo-Vostro-5620 systemd[1]: Started elasticsearch.service - Elasticsearch.
+May 02 22:08:26 anngo-Vostro-5620 systemd[1]: Stopping elasticsearch.service - Elasticsearch...
+May 02 22:08:27 anngo-Vostro-5620 systemd[1]: elasticsearch.service: Deactivated successfully.
+May 02 22:08:27 anngo-Vostro-5620 systemd[1]: Stopped elasticsearch.service - Elasticsearch.
+May 02 22:08:27 anngo-Vostro-5620 systemd[1]: elasticsearch.service: Consumed 1min 45.865s CPU time.
+
+anngo@anngo-Vostro-5620:~$ sudo systemctl stop elasticsearch
+
+anngo@anngo-Vostro-5620:~$ sudo systemctl start elasticsearch
+
+anngo@anngo-Vostro-5620:~$
+```
+
+### 5.19. `w`
+Displays who is online.
+```bash
+anngo@anngo-Vostro-5620:~$ w
+ 22:10:03 up 36 min,  1 user,  load average: 0.85, 0.92, 0.82
+USER     TTY      FROM             LOGIN@   IDLE   JCPU   PCPU WHAT
+anngo    tty2     -                21:33   36:47   0.04s  0.04s /usr/libexec/gn
+
+anngo@anngo-Vostro-5620:~$
+```
+
+### 5.20. `last`
 Lists your last logins of specified user.  
 ```bash
 last yourUsername
 ```
 
-### k. `man`
-Shows the manual for specified command.  
+Example:
 ```bash
-man command
+anngo@anngo-Vostro-5620:~$ last
+anngo    tty2         tty2             Fri May  2 21:33   still logged in
+anngo    seat0        login screen     Fri May  2 21:33   still logged in
+reboot   system boot  6.11.0-24-generi Fri May  2 21:33   still running
+anngo    tty2         tty2             Fri May  2 20:32 - 21:32  (01:00)
+anngo    seat0        login screen     Fri May  2 20:32 - down   (01:00)
+reboot   system boot  6.11.0-24-generi Fri May  2 20:31 - 21:32  (01:00)
+anngo    tty2         tty2             Fri May  2 20:25 - 20:31  (00:06)
+anngo    seat0        login screen     Fri May  2 20:25 - down   (00:06)
+reboot   system boot  6.11.0-24-generi Fri May  2 20:23 - 20:31  (00:07)
+...
 ```
 
-### l. `passwd`
+### 5.21. `passwd`
 Allows the current logged user to change their password.
+```bash
+anngo@anngo-Vostro-5620:~$ passwd
+Changing password for anngo.
+Current password:
 
-### m. `ping`
-Pings host and outputs results.  
+```
+
+## 6. Network Operations
+
+### 6.1. `ping`
+The `ping` command is used to test the network connection between your system and a specified host (e.g., a website or IP address). It sends packets to the target host and waits for a response, which helps in diagnosing network issues.
 ```bash
 ping host
 ```
 
-### n. `ps`
-Lists your processes.  
+Example:
 ```bash
-ps -u yourusername
-```
-Use the flags ef. e for every process and f for full listing. 
-```bash
-ps -ef
-```
-
-### o. `quota`
-Shows what your disk quota is.  
-```bash
-quota -v
+anngo@anngo-Vostro-5620:~$ ping google.com
+PING google.com (2404:6800:4003:c05::66) 56 data bytes
+64 bytes from sl-in-f102.1e100.net (2404:6800:4003:c05::66): icmp_seq=1 ttl=105 time=56.7 ms
+64 bytes from sl-in-f102.1e100.net (2404:6800:4003:c05::66): icmp_seq=2 ttl=105 time=96.3 ms
+64 bytes from sl-in-f102.1e100.net (2404:6800:4003:c05::66): icmp_seq=3 ttl=105 time=57.6 ms
+64 bytes from sl-in-f102.1e100.net (2404:6800:4003:c05::66): icmp_seq=4 ttl=105 time=50.5 ms
+64 bytes from sl-in-f102.1e100.net (2404:6800:4003:c05::66): icmp_seq=5 ttl=105 time=58.4 ms
+64 bytes from sl-in-f102.1e100.net (2404:6800:4003:c05::66): icmp_seq=6 ttl=105 time=80.6 ms
+64 bytes from sl-in-f102.1e100.net (2404:6800:4003:c05::66): icmp_seq=7 ttl=105 time=66.1 ms
+...
 ```
 
-### p. `scp`
-Transfer files between a local host and a remote host or between two remote hosts.
-
-*copy from local host to remote host*
-```bash
-scp source_file user@host:directory/target_file
-```
-*copy from remote host to local host*
-```bash
-scp user@host:directory/source_file target_file
-scp -r user@host:directory/source_folder target_folder
-```
-This command also accepts an option `-P` that can be used to connect to specific port.  
-```bash
-scp -P port user@host:directory/source_file target_file
-```
-
-### q. `ssh`
-ssh (SSH client) is a program for logging into and executing commands on a remote machine.  
-```bash
-ssh user@host
-```
-This command also accepts an option `-p` that can be used to connect to specific port.  
-```bash
-ssh -p port user@host
-```
-
-### r. `top`
-Displays your currently active processes.
-
-### s. `uname`
-Shows kernel information.  
-```bash
-uname -a
-```
-
-### t. `uptime`
-Shows current uptime.
-
-### u. `w`
-Displays who is online.
-
-### v. `wget`
+### 6.2. `wget`
 Downloads file.  
 ```bash
 wget file
 ```
 
-### w. `whoami`
-Return current logged in username.
-
-### x. `whois`
-Gets whois information for domain.  
-```bash
-whois domain
-```
-
-### y. `rsync`
-Does the same job as `scp` command, but transfers only changed files. Useful when transferring the same folder to/from server multiple times.
-```bash
-rsync source_folder user@host:target_folder
-rsync user@host:target_folder target_folder
-```
-
-### z. `curl`
-Curl is a command-line tool for requesting or sending data using URL syntax. Usefull on systems where you only have terminal available for making various requests.
+### 6.3. `curl`
+`curl` is a command-line tool for requesting or sending data using URL syntax. Usefull on systems where you only have terminal available for making various requests.
 ```bash
 curl url
 ```
 Use  `-X` or `--request` to specify which method you would like invoke (GET, POST, DELETE, ...).
 Use `-d <data>` or `--data <data>` to POST data on given URL.
 
-## 1.5. Process Monitoring Operations
+Example:
+```bash
+anngo@anngo-Vostro-5620:~$ curl https://api.example.com/data
+
+anngo@anngo-Vostro-5620:~$ curl -X POST -d "username=user&password=pass" https://api.example.com/login
+
+anngo@anngo-Vostro-5620:~$ curl -H "Authorization: Bearer your_token" https://api.example.com/data
+
+anngo@anngo-Vostro-5620:~$ curl -X POST -H "Content-Type: application/json" -d '{"username": "user", "password": "pass"}' https://api.example.com/login
+
+anngo@anngo-Vostro-5620:~$ curl -X DELETE https://api.example.com/delete-item/123
+```
+
+
+## 7. Process Monitoring Operations
 
 <table>
    <tr>
@@ -1791,32 +1990,25 @@ Use `-d <data>` or `--data <data>` to POST data on given URL.
    </tr>
 </table>
 
-### a. `kill`
-Kills (ends) the processes with the ID you gave.  
+### 7.1. `kill`
+The kill command is used to terminate a process by sending it a signal. By default, it sends the SIGTERM signal (signal number 15), which asks a process to terminate gracefully. You can also send other signals like SIGKILL (9) to forcefully stop it.
+
 ```bash
-kill PID
+anngo@anngo-Vostro-5620:~$ ps aux | grep firefox
+anngo     12345  0.5  5.2 123456 65432 ?  Sl   10:00   0:15 /usr/lib/firefox/firefox
+
+anngo@anngo-Vostro-5620:~$ kill 12345
+
+anngo@anngo-Vostro-5620:~$ kill -9 12345
 ```
 
-### b. `killall`
-Kill all processes with the name.  
-```bash
-killall processname
-```
+### 7.2. `killall`
+The killall command is used to terminate all processes with a given name. Unlike kill, which requires a process ID (PID), killall targets all processes that match the name you specify.
 
-### c. &
-The `&` symbol instructs the command to run as a background process in a subshell.
 ```bash
-command &
-```
+anngo@anngo-Vostro-5620:~$ killall firefox
 
-### d. `nohup`
-nohup stands for "No Hang Up". This allows to run command/process or shell script that can continue running in the background after you log out from a shell.
-```bash
-nohup command
-```
-Combine it with `&` to create background processes 
-```bash
-nohup command &
+anngo@anngo-Vostro-5620:~$ killall -9 firefox
 ```
 
 # 2. Basic Shell Programming

@@ -197,7 +197,7 @@ my_function
 echo $var   # Output: I am now global
 ```
 
-## 💡 8.3. Data types
+## 8.3 💡 Data types
 ### Strings
 Strings are sequences of characters used to store text. They can be manipulated using various string operations such as concatenation and substring extraction.
 
@@ -305,7 +305,7 @@ echo ${colors[apple]} # red
 echo ${colors[grape]} # purple
 ```
 
-## 8.4. Ternary conditions
+## 8.4. 🔀 Ternary conditions
 
 Bash has also support for the ternary conditions. Check some examples below.
 ```bash
@@ -317,61 +317,174 @@ ${varname:offset:length}    # performs substring expansion. It returns the subst
 
 Example:
 ```bash
+name="Alice"
+echo ${name:-"Guest"}     # Output: Alice
 
+echo ${user:="admin"}     # Output: admin (also sets user=admin)
+
+color="blue"
+echo ${color:+yes}        # Output: yes
+
+text="bashscript"
+echo ${text:4:6}          # Output: script
 ```
 
-## 8.3 String Substitution
 
-Check some of the syntax on how to manipulate strings
+## 8.5. 🔧 Operators
+Bash provides several types of operators for performing arithmetic, comparison, string, and logical operations, ....
 
+### 🧮 Arithmetic Operators
+Use `(( ))` to perform integer arithmetic operations:
+
+| Operator |	Description |	Example |
+|----------|--------------|---------|
+| `+` |	Addition |	`((a + b))` |
+| `-` |	Subtraction |	`((a - b))` |
+| `*` |	Multiplication |	`((a * b))` |
+| `/` |	Division |	`((a / b))` |
+| `%` |	Modulus |	`((a % b))` |
+
+Example:
 ```bash
-${variable#pattern}         # if the pattern matches the beginning of the variable's value, delete the shortest part that matches and return the rest
-${variable##pattern}        # if the pattern matches the beginning of the variable's value, delete the longest part that matches and return the rest
-${variable%pattern}         # if the pattern matches the end of the variable's value, delete the shortest part that matches and return the rest
-${variable%%pattern}        # if the pattern matches the end of the variable's value, delete the longest part that matches and return the rest
-${variable/pattern/string}  # the longest match to pattern in variable is replaced by string. Only the first match is replaced
-${variable//pattern/string} # the longest match to pattern in variable is replaced by string. All matches are replaced
-${#varname}     # returns the length of the value of the variable as a character string
+a=10
+b=3
+echo $((a + b))  # 13
+echo $((a % b))  # 1
 ```
 
-## 8.4. Other String Tricks
+### 🔤 String Comparison
+Used to compare string values:
 
-Bash has multiple shorthand tricks for doing various things to strings.
+| Operator |	Meaning |
+|----------|----------|
+| `=`      |	Equal   |
+| `!=`     |	Not equal |
+| `-z`	   | Is empty |
+| `-n` |	Is not empty |
 
+### 🔍 Comparison Operators
+Used to compare numeric values inside `[[ ]]` or `(( ))`:
+
+- **Arithmetic Evaluation** (`(( ))`):
+When using `(( ))` for numeric comparisons, Bash treats it as an arithmetic evaluation, so you can use common comparison operators like `<`, `>`, `==`, `!=`, `<=`, `>=` directly without needing to specify a flag like `-lt` or `-gt`. This makes the syntax simpler and more readable.
+
+- **Using `-lt`, `-gt`, etc.**:
+These are used when performing tests with `[ ]` (test operator) or `[[ ]]` (extended test operator). They are not arithmetic operations but are used to compare strings or numbers in a more traditional conditional syntax.
+
+| Operator |	Meaning |
+|----------|----------|
+| `-eq`	| Equal |
+| `-ne`	| Not equal |
+| `-gt` |	Greater than |
+| `-lt`	| Less than |
+| `-ge`	| Greater or equal |
+| `-le`	| Less or equal |
+
+Example:
 ```bash
-${variable,,}    #this converts every letter in the variable to lowercase
-${variable^^}    #this converts every letter in the variable to uppercase
-
-${variable:2:8}  #this returns a substring of a string, starting at the character at the 2 index(strings start at index 0, so this is the 3rd character),
-                 #the substring will be 8 characters long, so this would return a string made of the 3rd to the 11th characters.
+a=5
+b=7
+if [[ $a -lt $b ]]; then
+  echo "$a is less than $b"
+fi
 ```
 
-Here are some handy pattern matching tricks
+### ⚙️ Logical Operators
+Used for combining conditions:
+
+| Operator |	Meaning |
+|----------|----------|
+| `&&` |	Logical AND |
+| `\|\|`	| Logical OR |
+| `!`	| Logical NOT |
+
+Example:
 ```bash
-if [[ "$variable" == *subString* ]]  #this returns true if the provided substring is in the variable
-if [[ "$variable" != *subString* ]]  #this returns true if the provided substring is not in the variable
-if [[ "$variable" == subString* ]]   #this returns true if the variable starts with the given subString
-if [[ "$variable" == *subString ]]   #this returns true if the variable ends with the given subString
+x=4
+y=6
+if (( x < 10 && y > 5 )); then
+  echo "Condition met"
+fi
 ```
 
+### ✅ File Test Operators  
+| **Operator**     |  **Description**          |
+| ----------------- | -------------------------- |
+| `-e file`         | Checks if the file exists.                                            |
+| `-f file`         | Checks if the file is a regular file.                                 |
+| `-d file`         | Checks if the file is a directory.                                    |
+| `-r file`         | Checks if the file is readable.                                       |
+| `-w file`         | Checks if the file is writable.                                       |
+| `-x file`         | Checks if the file is executable.                                     |
+| `-s file`         | Checks if the file is not empty (i.e., it has a size greater than 0). |
+| `file1 -nt file2` | Checks if `file1` is newer than `file2`.                              |
+| `file1 -ot file2` | Checks if `file1` is older than `file2`.                              |
 
-The above can be shortened using a case statement and the IN keyword
+Example:
 ```bash
-case "$var" in
-  begin*)
-    #variable begins with "begin"
-  ;;
-  *subString*)
-    #subString is in variable
-  ;;
+# File path
+file="testfile.txt"
+directory="mydirectory"
 
-  *otherSubString*)
-    #otherSubString is in variable
-  ;;
-esac
+# Check if the file exists
+if [ -e "$file" ]; then
+  echo "File '$file' exists."
+else
+  echo "File '$file' does not exist."
+fi
+
+# Check if it's a regular file
+if [ -f "$file" ]; then
+  echo "'$file' is a regular file."
+else
+  echo "'$file' is not a regular file."
+fi
+
+# Check if it's a directory
+if [ -d "$directory" ]; then
+  echo "'$directory' is a directory."
+else
+  echo "'$directory' is not a directory."
+fi
+
+# Check if the file is readable
+if [ -r "$file" ]; then
+  echo "File '$file' is readable."
+else
+  echo "File '$file' is not readable."
+fi
+
+# Check if the file is writable
+if [ -w "$file" ]; then
+  echo "File '$file' is writable."
+else
+  echo "File '$file' is not writable."
+fi
+
+# Check if the file is executable
+if [ -x "$file" ]; then
+  echo "File '$file' is executable."
+else
+  echo "File '$file' is not executable."
+fi
+
+# Check if the file is not empty
+if [ -s "$file" ]; then
+  echo "File '$file' is not empty."
+else
+  echo "File '$file' is empty."
+fi
+
+# Compare two files based on modification time
+another_file="anotherfile.txt"
+if [ "$file" -nt "$another_file" ]; then
+  echo "'$file' is newer than '$another_file'."
+else
+  echo "'$file' is older than or the same age as '$another_file'."
+fi
 ```
 
-## 8.5. Functions
+## 8.7. Functions
 As in almost any programming language, you can use functions to group pieces of code in a more logical way or practice the divine art of recursion. Declaring a function is just a matter of writing function my_func { my_code }. Calling a function is just like calling another program, you just write its name.
 
 ```bash
@@ -420,41 +533,6 @@ case expression in
 esac
 ```
 
-Expression Examples:
-
-```bash
-statement1 && statement2  # both statements are true
-statement1 || statement2  # at least one of the statements is true
-
-str1=str2       # str1 matches str2
-str1!=str2      # str1 does not match str2
-str1<str2       # str1 is less than str2
-str1>str2       # str1 is greater than str2
--n str1         # str1 is not null (has length greater than 0)
--z str1         # str1 is null (has length 0)
-
--a file         # file exists
--d file         # file exists and is a directory
--e file         # file exists; same -a
--f file         # file exists and is a regular file (i.e., not a directory or other special type of file)
--r file         # you have read permission
--s file         # file exists and is not empty
--w file         # you have write permission
--x file         # you have execute permission on file, or directory search permission if it is a directory
--N file         # file was modified since it was last read
--O file         # you own file
--G file         # file's group ID matches yours (or one of yours, if you are in multiple groups)
-
-file1 -nt file2     # file1 is newer than file2
-file1 -ot file2     # file1 is older than file2
-
--lt     # less than
--le     # less than or equal
--eq     # equal
--ge     # greater than or equal
--gt     # greater than
--ne     # not equal
-```
 
 ## 8.7. Loops
 

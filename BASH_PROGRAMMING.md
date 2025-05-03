@@ -595,6 +595,47 @@ for file in *.sh; do
 done
 ```
 
+**Control Commands in Loops**:
+In addition to these loop structures, Bash provides control commands that can influence the flow of execution within loops:
+
+- `continue`: This command skips the current iteration and moves on to the next iteration of the loop. It’s often used when you want to skip certain iterations based on a condition.
+
+Example:
+
+```bash
+for i in {1..5}; do
+    if (( i == 3 )); then
+        continue  # Skip when i is 3
+    fi
+    echo "i is $i"
+done
+```
+- `break`: The `break` command exits the loop entirely, regardless of the condition. It's used when you want to stop the loop based on a certain condition.
+
+Example:
+
+```bash
+for i in {1..5}; do
+    if (( i == 4 )); then
+        break  # Stop the loop when i is 4
+    fi
+    echo "i is $i"
+done
+```
+- `exit`: The `exit` command will terminate the script completely, not just the loop. It can be used within any loop or function to exit the script.
+
+Example:
+
+```bash
+for i in {1..5}; do
+    if (( i == 3 )); then
+        echo "Exiting the script"
+        exit 0  # Exit the script when i is 3
+    fi
+    echo "i is $i"
+done
+```
+
 ## 8.8. Functions
 As in almost any programming language, you can use functions to group pieces of code in a more logical way or practice the divine art of recursion. Declaring a function is just a matter of writing function `my_func { my_code }`. Calling a function is just like calling another program, you just write its name.
 

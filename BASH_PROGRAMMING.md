@@ -484,45 +484,36 @@ else
 fi
 ```
 
-## 8.7. Functions
-As in almost any programming language, you can use functions to group pieces of code in a more logical way or practice the divine art of recursion. Declaring a function is just a matter of writing function my_func { my_code }. Calling a function is just like calling another program, you just write its name.
-
-```bash
-function name() {
-    shell commands
-}
-```
-
-Example:
-```bash
-#!/bin/bash
-function hello {
-   echo world!
-}
-hello
-
-function say {
-    echo $1
-}
-say "hello world!"
-```
-
-When you run the above example the `hello` function will output "world!". The above two functions `hello` and `say` are identical. The main difference is function `say`. This function, prints the first argument it receives. Arguments, within functions, are treated in the same manner as arguments given to the script.
-
-## 8.6. Conditionals
-
+## 8.6. 🔁 Conditionals
 The conditional statement in bash is similar to other programming languages. Conditions have many form like the most basic form is `if` expression `then` statement where statement is only executed if expression is true.
 
 ```bash
-if [ expression ]; then
-    will execute only if expression is true
+if [ condition ]; then
+  # executes if condition is true
+elif [ another_condition ]; then
+  # executes if another_condition is true
 else
-    will execute if expression is false
+  # executes if none of the above conditions are true
+fi
+```
+- Use `[ ... ]` or `[[ ... ]]` for conditions.
+- You can also use `(( ... ))` for arithmetic conditions.
+- Always separate brackets and expressions with spaces.
+
+Example:
+```bash
+num=7
+
+if [ $num -gt 10 ]; then
+  echo "Greater than 10"
+elif [ $num -eq 10 ]; then
+  echo "Equal to 10"
+else
+  echo "Less than 10"
 fi
 ```
 
 Sometime if conditions becoming confusing so you can write the same condition using the `case statements`.
-
 ```bash
 case expression in
     pattern1 )
@@ -533,9 +524,21 @@ case expression in
 esac
 ```
 
+Example:
+```bash
+fruit="apple"
 
-## 8.7. Loops
+case $fruit in
+  "apple")
+    echo "It's an apple" ;;
+  "banana")
+    echo "It's a banana" ;;
+  *)
+    echo "Unknown fruit" ;;
+esac
+```
 
+## 8.7. ⏳ Loops
 There are three types of loops in bash. `for`, `while` and `until`.
 
 Different `for` Syntax:
@@ -565,247 +568,66 @@ until condition; do
 done
 ```
 
-# 8.8. Regex
-
-They are a powerful tool for manipulating and searching text. Here are some examples of regular expressions that use each `metacharacter`:
-
-<table>
-   <tr>
-      <td><a href="#a-dot">`.`(dot)</a></td>
-      <td><a href="#b-asterisk">`*`(asterisk)</a></td>
-      <td><a href="#c-plus">`+`(plus)</a></td>
-      <td><a href="#d-question_mark">`?`(question mark)</a></td>
-      <td><a href="#c-plus">`|`(pipe)</a></td>
-      <td><a href="#c-plus">`[]`(character class)</a></td>
-      <td><a href="#c-plus">`[^]`(negated character class)</a></td>
-      <td><a href="#c-plus">`()`(grouping)</a></td>
-      <td><a href="#c-plus">`{}`(quantifiers)</a></td>
-      <td><a href="#c-plus">`\`(escape)</a></td>
-   </tr>
-</table>
-
-### a. `.` (dot)
-Matches any single character except newline.  
+Example:
 ```bash
-grep h.t file.txt
-```
-Output:
-```bash
-hat
-hot
-hit
+for item in apple banana cherry; do
+  echo "Fruit: $item"
+done
+
+for ((i = 1; i <= 5; i++)); do
+  echo "Number: $i"
+done
+
+count=1
+while [ $count -le 5 ]; do
+  echo "Count is $count"
+  ((count++))
+done
+
+n=1
+until [ $n -gt 5 ]; do
+  echo "n = $n"
+  ((n++))
+done
+
+for file in *.sh; do
+  echo "Processing file: $file"
+done
 ```
 
-### b. `*` (asterisk)
-Matches zero or more occurrences of the preceding character or group.
+## 8.8. Functions
+As in almost any programming language, you can use functions to group pieces of code in a more logical way or practice the divine art of recursion. Declaring a function is just a matter of writing function `my_func { my_code }`. Calling a function is just like calling another program, you just write its name.
+
 ```bash
-grep ab*c file.txt
-```
-Output:
-```bash
-ac
-abc
-abbc
-abbbc
+function name() {
+  # shell commands
+}
 ```
 
-### c. `+` (plus)
-Matches one or more occurrences of the preceding character or group.
+Example:
 ```bash
-grep ab+c file.txt
-```
-Output:
-```bash
-abc
-abbc
-abbbc
-abbbbc
+#!/bin/bash
+function hello {
+  echo world!
+}
+hello
+
+function say {
+  echo $1
+}
+say "hello world!"
+
+add() {
+  local sum=$(($1 + $2))
+  echo $sum
+}
+result=$(add 5 3)
+echo "The sum is $result"
 ```
 
-### d. `?` (question mark)
-Matches zero or one occurrence of the preceding character or group.
-```bash
-grep ab?c file.txt
-```
-Output:
-```bash
-ac
-abc
-```
+When you run the above example the `hello` function will output "world!". The above two functions `hello` and `say` are identical. The main difference is function `say`. This function, prints the first argument it receives. Arguments, within functions, are treated in the same manner as arguments given to the script.
 
-### e. `|` (pipe)
-Matches either the pattern to the left or the pattern to the right.
-```bash
-egrep "cat|dog" file.txt
-```
-Output:
-```bash
-cat
-dog
-```
-
-### f. `[]` (character class)
-Matches any character inside the brackets.
-```bash
-[aeiou] will match any vowel
-[a-z] will match any lowercase letter
-```
-
-### g. `[]` (negated character class)
-Matches any character not inside the brackets.
-```bash
-[^aeiou] will match any consonant
-[^a-z] will match any non-lowercase letter
-```
-
-### h. `()` (grouping)
-Groups multiple tokens together and creates a capture group.
-```bash
-egrep "(ab)+" file.txt
-```
-
-Output:
-```bash
-ab
-abab
-ababab
-```
-
-### i. `{}` (quantifiers)
-Matches a specific number of occurrences of the preceding character or group.
-```bash
-egrep "a{3}" file.txt
-```
-
-Output:
-```bash
-aaa
-aaaa
-aaaaa
-```
-
-### j. `\` (escape)
-Escapes the next character to match it literally.
-```bash
-egrep "a\+" file.txt
-```
-
-Output:
-```bash
-a+
-```
-=======
 ## 8.9. Pipes
 
 Multiple commands can be linked together with a pipe, `|`. A `|` will send the standard-output from command A to the standard-input of command B.
 Pipes can also be constructed with the `|&` symbols. This will send the standard-output **and** standard-error from command A to the standard-input of command B.
-
-# 9. Tricks
-
-## Set an alias
-
-Run `nano ~/.bash_profile` and add the following line:
-
-```bash
-alias dockerlogin='ssh www-data@adnan.local -p2222'  # add your alias in .bash_profile
-```
-
-## To quickly go to a specific directory
-
-Run `nano ~/.bashrc` and add the following line:
-
-```bash
-export hotellogs="/workspace/hotel-api/storage/logs"
-```
-
-Now you can use the saved path:
-
-```bash
-source ~/.bashrc
-cd $hotellogs
-```
-
-## Re-execute the previous command
-
-This goes back to the days before you could rely on keyboards to have an "up" arrow key, but can still be useful. 
-To run the last command in your history
-```bash
-!!
-```
-A common error is to forget to use `sudo` to prefix a command requiring privileged execution. Instead of typing the whole command again, you can:
-```bash
-sudo !!
-```
-This would change a `mkdir somedir` into `sudo mkdir somedir`.
-
-## Exit traps
-
-Make your bash scripts more robust by reliably performing cleanup.
-
-```bash
-function finish {
-  # your cleanup here. e.g. kill any forked processes
-  jobs -p | xargs kill
-}
-trap finish EXIT
-```
-
-## Saving your environment variables
-
-When you do `export FOO = BAR`, your variable is only exported in this current shell and all its children, to persist in the future you can simply append in your `~/.bash_profile` file the command to export your variable
-```bash
-echo export FOO=BAR >> ~/.bash_profile
-```
-
-## Accessing your scripts
-
-You can easily access your scripts by creating a bin folder in your home with `mkdir ~/bin`, now all the scripts you put in this folder you can access in any directory.
-
-If you can not access, try append the code below in your `~/.bash_profile` file and after do `source ~/.bash_profile`.
-```bash
-# set PATH so it includes user's private bin if it exists
-if [ -d "$HOME/bin" ] ; then
-    PATH="$HOME/bin:$PATH"
-fi
-```
-
-# 10. Debugging
-You can easily debug the bash script by passing different options to `bash` command. For example `-n` will not run commands and check for syntax errors only. `-v` echo commands before running them. `-x` echo commands after command-line processing.
-
-```bash
-bash -n scriptname
-bash -v scriptname
-bash -x scriptname
-```
-
-# 11. Multi-threading
-You can easily multi-threading your jobs using `&`. All those jobs will then run in the background simultaneously and you can see the processes below are running using `jobs`.
-
-```bash
-sleep 15 & sleep 5 &
-```
-
-The optional `wait` command will then wait for all the jobs to finish.
-
-```bash
-sleep 10 & sleep 5 &
-wait
-```
-
-## Contribution
-
-- Report issues [How to](https://help.github.com/articles/creating-an-issue/)
-- Open pull request with improvements [How to](https://help.github.com/articles/about-pull-requests/)
-- Spread the word
-
-## Translation
-- [Chinese | 简体中文](https://github.com/vuuihc/bash-guide)
-- [Turkish | Türkçe](https://github.com/omergulen/bash-guide)
-- [Japanese | 日本語](https://github.com/itooww/bash-guide)
-- [Russian | Русский](https://github.com/navinweb/bash-guide)
-- [Vietnamese | Tiếng Việt](https://github.com/nguyenvanhieuvn/hoc-bash)
-- [Spanish | Español](https://github.com/mariotristan/bash-guide)
-
-## License
-
-[![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)

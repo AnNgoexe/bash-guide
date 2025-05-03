@@ -2032,3 +2032,98 @@ anngo@anngo-Vostro-5620:~$ killall firefox
 
 anngo@anngo-Vostro-5620:~$ killall -9 firefox
 ```
+
+## 8. User Management Operations
+In Unix/Linux environments, user management is a critical part of system administration. Common tasks include creating users, deleting users, changing passwords, adding users to groups, and checking user information.
+
+| File |	Purpose |
+|------|-----------|
+| `/etc/passwd` |	Stores user account information |
+| `/etc/shadow` |	Stores encrypted user passwords |
+| `/etc/group` |	Stores group information |
+
+### 8.1. `useradd`
+Creates a new user account.
+```bash
+useradd [options] username
+```
+- `-m`: Create a home directory
+- `-s`: Specify the shell
+- `-d`: Specify home directory
+- `-G`: Add user to additional groups
+
+Example:
+```bash
+useradd -m -s /bin/bash john
+```
+
+### 8.2. `passwd`
+Sets or changes the password of a user. You will be prompted to enter and confirm the new password.
+```bash
+passwd [username]
+```
+
+Example:
+```bash
+passwd john
+```
+
+### 8.3. `userdel`
+Deletes a user account.
+```bash
+userdel [options] username
+```
+`-r`: Remove home directory and mail spool
+
+**Example**:
+```bash
+userdel -r john
+```
+
+### 8.4. `usermod`
+Modifies an existing user account.
+```bash
+usermod [options] username
+```
+- `-l newname`: Change the login name
+- `-d /new/home -m`: Move home directory
+- `-aG groupname`: Add user to a group (with `-a` to append)
+
+Example:
+
+```bash
+sudo usermod -aG john
+```
+
+### 8.5. `groupadd`
+Creates a new group.
+```bash
+groupadd groupname
+```
+
+Example:
+```bash
+groupadd developers
+```
+
+### 8.6. `groupdel`
+Deletes an existing group.
+```bash
+groupdel groupname
+```
+
+Example:
+```bash
+groupdel developers
+```
+
+### 8.7 `groups`
+Displays group membership of a user.
+```bash
+groups [username]
+```
+
+Example:
+```bash
+groups john
+```

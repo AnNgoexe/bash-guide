@@ -1618,6 +1618,9 @@ ps [options]
 - `ps -f`: Shows a full listing of process details, including PID, PPID, the TTY, time, and the command.
 - `ps -aux`: Lists all processes for all users with full details. This is often used in combination with grep to filter processes.
 - `ps -u <user>`: Displays processes belonging to a specific user.
+- `ps -ef`: Another very popular way to get a full-format list of all processes (standard UNIX style). Often used for scripting.
+- `ps -eo pid,user,%cpu,%mem,command`: Display custom columns, only show the columns you care about.
+- `ps --sort=-<column_name>`: This shows processes sorted by memory usage, highest first. Example: `ps -aux --sort=-%MEM`
 
 Example:
 ```bash
@@ -1908,6 +1911,36 @@ anngo@anngo-Vostro-5620:~$ sudo systemctl stop elasticsearch
 anngo@anngo-Vostro-5620:~$ sudo systemctl start elasticsearch
 
 anngo@anngo-Vostro-5620:~$
+```
+
+**Starting a service**:
+```bash
+sudo systemctl start <service_name>
+```
+
+**Stopping a service**:
+```bash
+sudo systemctl stop <service_name>
+```
+
+**Check the status of a service**:
+```bash
+sudo systemctl status <service_name>
+```
+
+**Restart a service**:
+```bash
+sudo systemctl restart <service_name>
+```
+
+**Enable a service (auto-start at boot)**:
+```bash
+sudo systemctl enable <service_name>
+```
+
+**Disable a service (do not auto-start at boot)**:
+```bash
+sudo systemctl disable <service_name>
 ```
 
 ### 5.19. `w`
